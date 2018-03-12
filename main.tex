@@ -1,174 +1,296 @@
-% revision history
-%
-% 20140901 NPS: initial version
+%% abtex2-modelo-artigo.tex, v-1.9.6 laurocesar
+%% Copyright 2012-2016 by abnTeX2 group at http://www.abntex.net.br/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
 
-\documentclass[11pt]{article}
-\usepackage{fancyhdr}
-\usepackage{url}
-\topmargin=-5mm
-\evensidemargin=0cm
-\oddsidemargin=0cm
-\textwidth=16cm
-\textheight=22cm
-\addtolength{\headheight}{1.6pt}
-\newcommand{\cancel}[1]{}
-\newcommand{\mymark}{$^*$}
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
 
-\newcommand{\lastupdate}{Sept 2014}
+\documentclass[
+    % -- opções da classe memoir --
+    article,            % indica que é um artigo acadêmico
+    11pt,               % tamanho da fonte
+    oneside,            % para impressão apenas no recto. Oposto a twoside
+    a4paper,            % tamanho do papel. 
+    % -- opções da classe abntex2 --
+    %chapter=TITLE,     % títulos de capítulos convertidos em letras maiúsculas
+    %section=TITLE,     % títulos de seções convertidos em letras maiúsculas
+    %subsection=TITLE,  % títulos de subseções convertidos em letras maiúsculas
+    %subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
+    % -- opções do pacote babel --
+    english,            % idioma adicional para hifenização
+    brazil,             % o último idioma é o principal do documento
+    sumario=tradicional,
+    ]{abntex2}
 
-\lhead{\sc IACR Guidelines for Authors}
-\rhead{\sc \lastupdate}
 
-\title{\bf IACR Guidelines for Authors}
-\author{\mbox{}}
+% ---
+% PACOTES
+% ---
 
-\date{\lastupdate
- \footnote{The most recent version of this document
-    can be obtained from \protect\url{http://www.iacr.org/docs/}.\newline
-  Editors of this document: Nigel Smart (2014).}}
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{lmodern}            % Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}        % Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}     % Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}        % Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl}            % Lista de simbolos
+\usepackage{color}              % Controle das cores
+\usepackage{graphicx}           % Inclusão de gráficos
+\usepackage{microtype}          % para melhorias de justificação
+% ---
+        
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}             % para geração de dummy text
+% ---
+        
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}     % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}   % Citações padrão ABNT
+% ---
 
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+    \ifcase #1 %
+        Nenhuma citação no texto.%
+    \or
+        Citado na página #2.%
+    \else
+        Citado #1 vezes nas páginas #2.%
+    \fi}%
+% ---
 
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Relatório INE5429 - Segurança em Computação\\ 
+        Pretty Good Privacy (PGP)}
+\autor{Bruno Marques do Nascimento\thanks{brunomn95@gmail.com \hspace{1mm} - \hspace{1mm} Universidade Federal de Santa Catarina}}
+\instituicao{Universidade Federal de Santa Catarina}
+\local{Florianópolis - SC, Brasil}
+\data{14 de Março de 2018}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+        %pagebackref=true,
+        pdftitle={\@title}, 
+        pdfauthor={\@author},
+        pdfsubject={Modelo de artigo científico com abnTeX2},
+        pdfcreator={LaTeX with abnTeX2},
+        pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+        colorlinks=true,            % false: boxed links; true: colored links
+        linkcolor=blue,             % color of internal links
+        citecolor=blue,             % color of links to bibliography
+        filecolor=magenta,              % color of file links
+        urlcolor=blue,
+        bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
 \begin{document}
 
-\pagestyle{fancy}
-\pagenumbering{arabic}
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[           % INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
 
 \maketitle
 
-\noindent Dear Author,
-\vspace*{4mm}
-\par\noindent
-The purpose of this document is to clarify aspects of submission 
-to a publication of the IACR.
-%
-These guidelines complement other guidelines available on the IACR
-website, in particular, the Guidelines for Program Chairs, the IACR
-Policy on Irregular Submissions, and the Guidelines for Reviewers.
+
+% resumo em português
+\begin{resumoumacoluna}
+    Relatório de aula referente ao primeiro trabalho individual da disciplina INE5429 - Segurança em computação, com o objetivo de conhecer e utilizar o GPG (GNU Privacy Guard) que é uma alternativa GPL do aplicativo PGP de criptografia. Este documento visa responder as perguntas elencadas pelo professor ministrante da disciplina Ricardo Felipe Custódio na plataforma moodle.
+ 
+ \vspace{\onelineskip}
+ 
+\end{resumoumacoluna}
+
+% ]                 % FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+% \section*{Introdução}
+% \addcontentsline{toc}{section}{Introdução}
 
 
-\paragraph{Confidentiality.}
-All submissions to IACR conferences and workshops are in confidence.
-Reviewers are not allowed to disclose information about the authors, the
-content of submissions, other reviews, or discussions in a PC to
-anyone else not in such a role role.
-Likewise you may not ask reviewers and PC members for information
-about your submission \emph{before} the PC decisions are made; nor may
-you ask for information about discussions after the event (except, perhaps,
-for asking on general advice about a re-submission).
-In all cases any questions must be addressed to the program chairs
-rather than to individual PC members.
-
-\paragraph{Conflicts of interest.}
-Your papers will not be reviewed by reviewers who have a \emph{conflict of
-  interest} with at least one author of the submission.  The IACR does
-not impose a detailed policy on conflicts of interest.  The editor or
-Program Chair decides on what constitutes a conflict according to high
-standards in terms of scientific integrity~--- at least colleagues
-from the same research group, people in a current or very recent
-student-advisor relationship, close friends, and family members have a
-conflict.
-
-\paragraph{Attendance.}
-By submitting to an IACR conference or workshop the authors are
-committing to present their paper if it is accepted. Authors should
-make themselves aware before submitting of any visa application
-times or other restrictions before submitting.
-Only in exceptional circumstances will a replacement speaker
-be accepted by the program chair. 
-Repeat offenders will be reported to the IACR Ethics Committee.
-
-\paragraph{Anonymity.}
-For IACR conferences (Asiacrypt, Crypto and Eurocrypt)
-all submissions are anonymous. 
-No author names appear on a submission, and no funding information
-or identifying information should appear within the document.
-It is however acceptable to post full versions of your work
-on the Cryptology ePrint Achive, give presentations of your work
-etc.
-For IACR workshops, each workshop has its own policy
-on anonymous submissions. At the time of writing (2014) only TCC allows,
-and mandates, non-anonymous submissions.
-
-\paragraph{Cryptology ePrint Archive.}
-The IACR \emph{encourages} authors to place all submissions on
-the Cryptology ePrint Archive as soon as practically possible.
-This does not conflict with the anonymity requirement above, as
-anonymity is there to protect referees who do not wish to 
-know who an author is.
-Placing your article on the Cryptology ePrint Archive enables a
-public priority date to be set.
-Authors should be aware that multiple versions can be made
-available of a paper via the update functionality; with the 
-latest revision appearing as the ``main'' one. 
-
-For accepted papers we encourage authors to upload their camera ready 
-version to the Cryptology ePrint Archive as well; and authors who fail to do
-so may find the IACR loads up a version on their behalf.
-
-\paragraph{Irregular submissions.}
-You should be aware of the IACR policy on irregular submissions.
-Irregular submissions typically fall in two categories:
-\begin{itemize}
-\item \emph{Parallel submissions:} A parallel submission occurs when
-  authors submit essentially the same material to one or more other
-  publication venues with overlapping reviewing periods.
-\item \emph{Plagiarism:} Plagiarism arises when substantial parts of
-  existing publications are copied and submitted, virtually unchanged,
-  without the addition of new material, and without proper attribution
-  of the source, by other ``author(s).''
-\end{itemize}
-Such submissions will be rejected when detected; and a report will be made
-to the IACR Ethics Committee. 
-Authors should be aware that most security conferences share information
-in relation to parallel submission, and that plagarism is now easily
-detected using online tools.
-Action may be taken against authors who conduct such unethical behavior.
-
-The IACR recognizes that some work may not fit into a standard
-conference format. We therefore encourage, where it makes sense,
-for authors to submit two ``related'' works to a conference or workshop.
-If this is done the author should explicitly contact the program
-chair about this submmission, as special referee assignments may be
-needed.
-The authors should be aware that the two works should be able to
-stand alone, and the outcome may be two, one or none of the papers
-are accepted.
-
-\paragraph{Sticky Reviews.}
-IACR acknowledges that the process of submitting a rejected paper
-from one venue to another can lead to disparity of reviewing
-opinions and to additional workload for reviewers. Thus IACR
-\emph{encourages} authors to include in their Supplementary 
-Material\footnote{Sometimes called ``The Appendix''} responses
-to reviews from \emph{previous IACR events}. We would like to
-extend this to non-IACR events, but this would require the 
-permission of the PC chair of the prior non-IACR event.
-
-Note, that the referee's of the new paper will not have access to the
-old version, or the referee's reports, thus your comments should be
-understandable without these items.
-Including comments to say you have addressed a referee comment helps
-if a referee who is seeing your paper for the second time, by enabling
-them to concentrate on whether you have made the changes suggested.
-
-Such a response should be in the following form:
-\begin{verbatim}
-This paper was previously submitted to XXXXX 2014, YYYY 2013.
-
-The paper has been revised according to the feedback from the referees. 
-We state and address the relevant referee's comments below.
-
-Referee said : The paper is incremental
-Response     : We disagree with the referee because they did not see .....
-
-Referee said : There is a typo on page 3,....
-Response     : We thank the referee for spotting this, and have corrected this.
-
-blah blah
-\end{verbatim}
-We encourage all authors to be respectful to prior referees' opinions;
-just as we encourage referees to respect the work of authors.
+% ----------------------------------------------------------
+% Questão 1
+% ----------------------------------------------------------
+\section{Criar certificado pgp.}
 
 
+% ----------------------------------------------------------
+% Questão 2
+% ----------------------------------------------------------
+\section{Crie um novo certificado PGP para este trabalho individual (Não use o teu certificado pois ele terá que ser revogado). Coloque esse certificado de testes no servidor PGP. Depois verifique seu status. Então, crie um certificado de revogação e revogue o certificado de testes.}
+
+
+% ----------------------------------------------------------
+% Questão 3
+% ----------------------------------------------------------
+\section{Pratique a revogação de certificados PGP. Assine um certificado qualquer PGP (de outra pessoa). E envie esse certificado para o servidor PGP. Depois verifique o status do certificado. E então, revogue a assinatura que você fez. Confira o resultado no servidor PGP. Faça um relatório do que você fez, incluindo o KeyID do certificado cuja assinatura você revogou.}
+
+
+% ----------------------------------------------------------
+% Questão 4
+% ----------------------------------------------------------
+\section{O que é o anel de chaves privadas? Como este está estruturado? Na sua aplicação GPG onde este anel de chaves é armazenado? Quem pode ser acesso a esse porta chaves?}
+
+
+% ----------------------------------------------------------
+% Questão 5
+% ----------------------------------------------------------
+\section{Qual a diferença entre assinar uma chave local e assinar no servidor?}
+
+
+% ----------------------------------------------------------
+% Questão 6
+% ----------------------------------------------------------
+\section{O que é e como é organizado o banco de dados de confiabilidade?}
+
+
+% ----------------------------------------------------------
+% Questão 7
+% ----------------------------------------------------------
+\section{O que são e para que servem as sub-chaves?}
+
+
+% ----------------------------------------------------------
+% Questão 8
+% ----------------------------------------------------------
+\section{Coloque sua foto (ou uma figura qualquer) que represente você em seu certificado GPG.}
+
+
+% ----------------------------------------------------------
+% Questão 9
+% ----------------------------------------------------------
+\section{O que é preciso para criar e manter um servidor de chaves GPG, sincronizado com os demais servidores existentes?}
+
+
+% ----------------------------------------------------------
+% Questão 10
+% ----------------------------------------------------------
+\section{Dê um exemplo de como tornar sigiloso um arquivo usando o GPG. Envie esse arquivo para um colega e que enviar para você outro arquivo cifrado. Você deve decifrar e recuperar o conteúdo original.}
+
+
+% ----------------------------------------------------------
+% Questão 11
+% ----------------------------------------------------------
+\section{Dê um exemplo de como assinar um arquivo (assinatura anexada e outro com assinatura separada), usando o GPG. Envie uma mensagem assinada para um colega. Esse colega deve enviar para você outra mensagem assinada. Verifique se a assinatura está correta.}
+
+% ---
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+% ---
+\bookmarksetup{startatroot}% 
+% ---
+
+% ---
+% Conclusão
+% ---
+% \section*{Considerações finais}
+% \addcontentsline{toc}{section}{Considerações finais}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{bibliografia}
 
 \end{document}
