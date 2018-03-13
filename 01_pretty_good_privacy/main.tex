@@ -55,7 +55,7 @@
 \usepackage{lmodern}            % Usa a fonte Latin Modern
 \usepackage[T1]{fontenc}        % Selecao de codigos de fonte.
 \usepackage[utf8]{inputenc}     % Codificacao do documento (conversão automática dos acentos)
-\usepackage{indentfirst}        % Indenta o primeiro parágrafo de cada seção.
+% \usepackage{indentfirst}        % Indenta o primeiro parágrafo de cada seção.
 \usepackage{nomencl}            % Lista de simbolos
 \usepackage{color}              % Controle das cores
 \usepackage{graphicx}           % Inclusão de gráficos
@@ -66,6 +66,7 @@
 % Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
 % ---
 \usepackage{lipsum}             % para geração de dummy text
+\usepackage{fancyvrb}
 % ---
         
 % ---
@@ -211,11 +212,77 @@
 % ----------------------------------------------------------
 \section{Criar certificado pgp.}
 
+Através do terminal utilizado o comando \texttt{gpg ----full--gen--key}, o passo a passo abaixo foi realizado e o seguinte certificado gerado:
+
+\begin{Verbatim}[frame=single]
+Kind of key:  RSA and RSA.
+Keysize:      2048 bits.
+Valid for:    180 days.
+Key expires:  dom 09 set 2018 10:55:33 -03.
+USER-ID:      Bruno Marques (ine5429) <brunomn95@gmail.com>
+KEY-ID:       48B783E542BC3DE0
+    
+pub   rsa2048 2018-03-13 [SC] [expires: 2018-09-09]
+      FCF80DBA20F4AF28F329261448B783E542BC3DE0
+uid   Bruno Marques (ine5429) <brunomn95@gmail.com>
+sub   rsa2048 2018-03-13 [E] [expires: 2018-09-09]
+\end{Verbatim}
 
 % ----------------------------------------------------------
 % Questão 2
 % ----------------------------------------------------------
 \section{Crie um novo certificado PGP para este trabalho individual (Não use o teu certificado pois ele terá que ser revogado). Coloque esse certificado de testes no servidor PGP. Depois verifique seu status. Então, crie um certificado de revogação e revogue o certificado de testes.}
+
+Um novo certificado para posterior revogação foi gerado com os atributos abaixo elencados:
+
+\begin{Verbatim}[frame=single]
+Kind of key:  RSA and RSA.
+Keysize:      2048 bits.
+Valid for:    180 days.
+Key expires:  dom 09 set 2018 11:51:51 -03
+USER-ID:      Bruno Marques (questao2-ine5429) <brunomn@gmail.com>
+KEY-ID:       6E9ECD78A9CC5EBB
+
+pub   rsa2048 2018-03-13 [SC] [expires: 2018-09-09]
+      D5E5F581B6BCB811AAF4300A6E9ECD78A9CC5EBB
+uid   Bruno Marques (questao2-ine5429) <brunomn@gmail.com>
+sub   rsa2048 2018-03-13 [E] [expires: 2018-09-09]
+\end{Verbatim}
+
+Feito isto, o mesmo foi colocado no servidor PGP através do comando: \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send-keys 6E9ECD78A9CC5EBB}. Gerando o seguinte output:
+
+\begin{Verbatim}[frame=single]
+gpg: sending key 6E9ECD78A9CC5EBB to hkp://keyserver.cais.rnp.br
+\end{Verbatim}
+
+Após enviar o certificado ao servidor foi verificado seu status atraveś do comando \texttt{gpg ----keyserver keyserver.cais.rnp.br ----search--keys 6E9ECD78A9CC5EBB}. Que gerou a saída abaixo:
+
+\begin{Verbatim}[frame=single]
+gpg: data source: http://keyserver.cais.rnp.br:11371
+(1) Bruno Marques (questao2-ine5429) <brunomn@gmail.com>
+    2048 bit RSA key 6E9ECD78A9CC5EBB, created: 2018-03-13, 
+    expires: 2018-09-09
+Keys 1-1 of 1 for "6E9ECD78A9CC5EBB".
+\end{Verbatim}
+
+Em seguida foi criado um certificado de revogação através do comando: \texttt{gpg ----gen--revoke "Bruno Marques (questao2--ine5429)"}. Que gerou o seguinte certificado de revogação:
+
+\begin{Verbatim}[frame=single]
+ASCII armored output forced.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: This is a revocation certificate
+
+iQEfBCABCAAJBQJaqAenAh0AAAoJEG6ezXipzF67e8kIALk9q9kybAmfokksqhQK
+3bQXg3QAqszZkYZe8HqLsk/Ca5KLUfoZ/LzfXQ5vHHehaFOr1M+9ZiNrlpGZncwt
+cMOsQJyUZyhLf5/V46AiGNG6xAEiQ7Nsxpbbi4Uq+jnf5IakqWY3pTii/PIihlFa
+rKgya0Kw7NhOzJYfKu0pZ9A8g2e4TjK+xWf4Xk96FPnKmbOZcjf/vcQ/qHTcX4Hg
+AdrP0xhRyMgBpxvfAOVjUanGy5rxoz1vllne4pyHx9sFJP7tjS9ICa9F86Ww8ik5
+iNxBgbOkfGNA+K84ldNaDc1PjjIKbChINh/CZ3x2INBGJ4xuvW8OrQI4qM6LctLr
+npk=
+=fCkI
+-----END PGP PUBLIC KEY BLOCK-----
+Revocation certificate created.
+\end{Verbatim}
 
 
 % ----------------------------------------------------------
