@@ -214,7 +214,7 @@
 
 Através do terminal utilizado o comando \texttt{gpg ----full--gen--key}, o passo a passo abaixo foi realizado e o seguinte certificado gerado:
 
-\begin{Verbatim}[frame=single]
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
 Kind of key:  RSA and RSA.
 Keysize:      2048 bits.
 Valid for:    180 days.
@@ -235,7 +235,7 @@ sub   rsa2048 2018-03-13 [E] [expires: 2018-09-09]
 
 Um novo certificado para posterior revogação foi gerado com os atributos abaixo elencados:
 
-\begin{Verbatim}[frame=single]
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
 Kind of key:  RSA and RSA.
 Keysize:      2048 bits.
 Valid for:    180 days.
@@ -251,23 +251,22 @@ sub   rsa2048 2018-03-13 [E] [expires: 2018-09-09]
 
 Feito isto, o mesmo foi colocado no servidor PGP através do comando: \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send-keys 6E9ECD78A9CC5EBB}. Gerando o seguinte output:
 
-\begin{Verbatim}[frame=single]
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
 gpg: sending key 6E9ECD78A9CC5EBB to hkp://keyserver.cais.rnp.br
 \end{Verbatim}
 
 Após enviar o certificado ao servidor foi verificado seu status atraveś do comando \texttt{gpg ----keyserver keyserver.cais.rnp.br ----search--keys 6E9ECD78A9CC5EBB}. Que gerou a saída abaixo:
 
-\begin{Verbatim}[frame=single]
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
 gpg: data source: http://keyserver.cais.rnp.br:11371
 (1) Bruno Marques (questao2-ine5429) <brunomn@gmail.com>
-    2048 bit RSA key 6E9ECD78A9CC5EBB, created: 2018-03-13, 
-    expires: 2018-09-09
+    2048 bit RSA key 6E9ECD78A9CC5EBB, created: 2018-03-13, expires: 2018-09-09
 Keys 1-1 of 1 for "6E9ECD78A9CC5EBB".
 \end{Verbatim}
 
 Em seguida foi criado um certificado de revogação através do comando: \texttt{gpg ----gen--revoke "Bruno Marques (questao2--ine5429)"}. Que gerou o seguinte certificado de revogação:
 
-\begin{Verbatim}[frame=single]
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
 ASCII armored output forced.
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Comment: This is a revocation certificate
@@ -284,11 +283,68 @@ npk=
 Revocation certificate created.
 \end{Verbatim}
 
+Este certificado de revogação foi então salvo no arquivo \textbf{revog.txt} e utilizou-se o comando \texttt{gpg ----import  \textasciitilde /.gnupg/openpgp--revocs.d/revog.txt} para realizar a revogação desta chave e que posteriormente foi enviada ao servidor PGP, através do comando \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send--keys 6E9ECD78A9CC5EBB}. Para verificar seu status utilizou-se novamento o comando \texttt{gpg ----keyserver keyserver.cais.rnp.br ----search--keys 6E9ECD78A9CC5EBB} que mostrou o certificado como revogado:
+
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+gpg: data source: http://keyserver.cais.rnp.br:11371
+(1) Bruno Marques (questao2-ine5429) <brunomn@gmail.com>
+    2048 bit RSA key 6E9ECD78A9CC5EBB, created: 2018-03-13, expires: 2018-09-09 \textbf{(revoked)}
+\end{Verbatim}
+
+
 
 % ----------------------------------------------------------
 % Questão 3
 % ----------------------------------------------------------
 \section{Pratique a revogação de certificados PGP. Assine um certificado qualquer PGP (de outra pessoa). E envie esse certificado para o servidor PGP. Depois verifique o status do certificado. E então, revogue a assinatura que você fez. Confira o resultado no servidor PGP. Faça um relatório do que você fez, incluindo o KeyID do certificado cuja assinatura você revogou.}
+
+Foi importado um certificado para a máquina local através do comando \texttt{gpg ----recv--keys 54f950865065a318}. E então utilizados os comandos \texttt{gpg ----sign--key 54f950865065a318} e \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send--keys 54f950865065a318} para respectivamente assiná-lo e enviá-lo para o servidor pgp. Para verificar os status foi utilizado o seguinte comando \texttt{gpg ----list--sigs 54f950865065a318} que resultou no output abaixo:
+
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+pub   rsa4096 2014-09-22 [SCA] [expires: 2019-09-21]
+      E805BAF5D4688A9ED6658B8C54F950865065A318
+uid           [  full  ] Jean Martina <jean.martina@ufsc.br>
+sig          FD3D4401F5343946 2015-03-19  [User ID not found]
+sig          BF510D9287C98027 2015-03-20  [User ID not found]
+sig          1CFC45B2CB3BCBEE 2015-03-20  [User ID not found]
+sig          5DF66B47F48274D9 2015-03-27  [User ID not found]
+sig          A40097C5149F62B3 2015-03-27  [User ID not found]
+sig          A7E4BB4DDEA7DDF0 2015-04-16  [User ID not found]
+sig 1        3AD79D3F318B7BA5 2017-08-16  [User ID not found]
+sig        1 D84870658D9AA66A 2017-01-24  [User ID not found]
+rev          3AD79D3F318B7BA5 2017-08-16  [User ID not found]
+sig          C47D8F38399DE079 2015-03-20  [User ID not found]
+sig          C7BC91E9273DD888 2015-03-21  [User ID not found]
+sig 3        0F0F3FF23A2E6AB6 2015-04-15  [User ID not found]
+sig 3        54F950865065A318 2014-09-22  Jean Martina <jean.martina@ufsc.br>
+sig 3        54F950865065A318 2015-02-20  Jean Martina <jean.martina@ufsc.br>
+sig          48B783E542BC3DE0 2018-03-14  Bruno Marques (ine5429) <brunomn95@gmail.com>
+\end{Verbatim}
+
+Para revogar a assinatura foi utilizado o comando \texttt{gpg ----edit--key 54f950865065a318} seguido de \texttt{revsig} para criar o certificado de revogação de assinatura. E por fim foi utilizado o comando \texttt{save} para salvar as edições na chave, que fora enviada novamente ao servidor \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send--keys 54f950865065a318}. Em seguida verificou-se novamente seu status:
+
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+pub   rsa4096 2014-09-22 [SCA] [expires: 2019-09-21]
+      E805BAF5D4688A9ED6658B8C54F950865065A318
+uid           [ unknown] Jean Martina <jean.martina@ufsc.br>
+\textbf{rev          48B783E542BC3DE0 2018-03-14  Bruno Marques (ine5429) <brunomn95@gmail.com>}
+sig          FD3D4401F5343946 2015-03-19  [User ID not found]
+sig          BF510D9287C98027 2015-03-20  [User ID not found]
+sig          1CFC45B2CB3BCBEE 2015-03-20  [User ID not found]
+sig          5DF66B47F48274D9 2015-03-27  [User ID not found]
+sig          A40097C5149F62B3 2015-03-27  [User ID not found]
+sig          A7E4BB4DDEA7DDF0 2015-04-16  [User ID not found]
+sig 1        3AD79D3F318B7BA5 2017-08-16  [User ID not found]
+sig        1 D84870658D9AA66A 2017-01-24  [User ID not found]
+rev          3AD79D3F318B7BA5 2017-08-16  [User ID not found]
+sig          C47D8F38399DE079 2015-03-20  [User ID not found]
+sig          C7BC91E9273DD888 2015-03-21  [User ID not found]
+sig 3        0F0F3FF23A2E6AB6 2015-04-15  [User ID not found]
+sig 3        54F950865065A318 2014-09-22  Jean Martina <jean.martina@ufsc.br>
+sig 3        54F950865065A318 2015-02-20  Jean Martina <jean.martina@ufsc.br>
+sig          48B783E542BC3DE0 2018-03-14  Bruno Marques (ine5429) <brunomn95@gmail.com>
+\end{Verbatim}
+
 
 
 % ----------------------------------------------------------
@@ -302,6 +358,7 @@ Revocation certificate created.
 % ----------------------------------------------------------
 \section{Qual a diferença entre assinar uma chave local e assinar no servidor?}
 
+A diferença é que ao assinar localmente, a chave só terá essa assinatura na máquina local e outros usuários não poderão visualizar a sua assinatura sobre esta chave, quando esta assinatura está no servidor, todos os usuários podem acessar o servidor e verificar as assinaturas que uma determinada chave recebeu.
 
 % ----------------------------------------------------------
 % Questão 6
@@ -314,11 +371,20 @@ Revocation certificate created.
 % ----------------------------------------------------------
 \section{O que são e para que servem as sub-chaves?}
 
+Sub-chaves são como chaves normais, porém elas estão automaticamente relacionadas a um par de chaves principal. Elas servem tanto para assinatura como paraa cifragem. Apesar de estarem realcionadas a um par de chaves principal elas podem ser armazenadas separadamente do par de chave principal, assim como serem revogadas independentemente.
 
 % ----------------------------------------------------------
 % Questão 8
 % ----------------------------------------------------------
 \section{Coloque sua foto (ou uma figura qualquer) que represente você em seu certificado GPG.}
+
+Os seguintes comandos foram utilizados para isto: 
+\begin{Verbatim}[commandchars=\\\{\}, fontsize=\footnotesize]
+    \texttt{gpg --edit-key 42BC3DE0}
+    \texttt{addphoto}
+    \texttt{save}
+    \texttt{gpg --keyserver keyserver.cais.rnp.br --send-keys 42BC3DE0}
+\end{Verbatim}
 
 
 % ----------------------------------------------------------
@@ -332,12 +398,25 @@ Revocation certificate created.
 % ----------------------------------------------------------
 \section{Dê um exemplo de como tornar sigiloso um arquivo usando o GPG. Envie esse arquivo para um colega e que enviar para você outro arquivo cifrado. Você deve decifrar e recuperar o conteúdo original.}
 
+Um exemplo de tornar um arquivo sigiloso é mostrado a seguir. Primeiramente é necessário ter a chave pública do destinatário localmente e para isso utilizou-se o comando  \texttt{gpg ----recv--key B461AD97}, feito isso cria-se o arquivo, por exemplo, "sigiloso.txt", que será cifrado para se tornar de fato sigiloso, para isso utiliza-se o seguinte comando \texttt{gpg ----encrypt ----recipient B461AD97 sigiloso.txt} que irpa gerar o arquivo cifrado "sigiloso.txt.gpg" que será enviado ao destinatário por e-mail (\texttt{johannwestphall@gmail.com}).
+
+O arquivo que recebi tem o nome de "RelatorioSeg.gpg", para decifrar este arquivo e recuperar seu conteúdo original o seguinte comando foi utilizado \texttt{gpg ----decrypt RelatorioSeg.gpg} que revelou o conteúdo do arquivo, que consistia das questões em branco deste relatório. 
 
 % ----------------------------------------------------------
 % Questão 11
 % ----------------------------------------------------------
 \section{Dê um exemplo de como assinar um arquivo (assinatura anexada e outro com assinatura separada), usando o GPG. Envie uma mensagem assinada para um colega. Esse colega deve enviar para você outra mensagem assinada. Verifique se a assinatura está correta.}
-a
+
+Para assinar um arquivo com assinatura anexada foi utilizado o seguinte comando \texttt{gpg --s attach--sign.txt} que gerou o arquivo "attach--sign.txt.gpg" apartir do qual é possível fazer a verificação da assinatura do arquivo pelo comando \texttt{gpg ----verify attach--sign.txt.gpg}. Para assinatura separada o seguinte comando foi utilizado \texttt{gpg --b detach--sign.txt} que gerou o arquivo "detach--sign.txt.sig", para realizar a verificação da assinatura do documento é necessário utilizar o documento em texto puro e o arquivo assinado com o seguinte comando \texttt{gpg ----verify detach--sign.txt.sig detach--sign.txt}.
+
+O arquivo recebido para verificação de assinatura foi o "aaaa", a verificação de assinatura foi feita com o seguinte comando \texttt{gpg ----verify } tendo como saída o texto abaixo.
+
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+
+\end{Verbatim}
+
+
+
 % ---
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
 % ---
@@ -359,6 +438,8 @@ a
 % Referências bibliográficas
 % ----------------------------------------------------------
 \nocite{GnuPrivacyGuardHowto}
+\nocite{subkeys_debian}
+\nocite{Stallings:2010:CNS:1824151}
 \bibliography{bibliography}
 
 \end{document}
