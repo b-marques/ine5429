@@ -215,7 +215,7 @@
 \subsection*{\textbf{1 - Criar certificado pgp.}}
 \addcontentsline{toc}{subsection}{Questão 1}
 
-Através do terminal utilizado o comando \texttt{gpg ----full--gen--key}, o passo a passo abaixo foi realizado e o seguinte certificado gerado:
+Através do terminal utilizando o comando \texttt{gpg ----full--gen--key}, o passo a passo abaixo foi realizado e o seguinte certificado gerado:
 
 \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
 Kind of key:  RSA and RSA.
@@ -326,7 +326,8 @@ sig 3        54F950865065A318 2015-02-20  Jean Martina <jean.martina@ufsc.br>
 sig          48B783E542BC3DE0 2018-03-14  Bruno Marques (ine5429) <brunomn95@gmail.com>
 \end{Verbatim}
 
-Para revogar a assinatura foi utilizado o comando \texttt{gpg ----edit--key 54f950865065a318} seguido de \texttt{revsig} para criar o certificado de revogação de assinatura. E por fim foi utilizado o comando \texttt{save} para salvar as edições na chave, que fora enviada novamente ao servidor \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send--keys 54f950865065a318}. Em seguida verificou-se novamente seu status:
+Para revogar a assinatura foi utilizado o comando \texttt{gpg ----edit--key 54f950865065a
+318} seguido de \texttt{revsig} para criar o certificado de revogação de assinatura. E por fim foi utilizado o comando \texttt{save} para salvar as edições na chave, que fora enviada novamente ao servidor \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send--keys 54f950865065a318}. Em seguida verificou-se novamente seu status:
 
 \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
 pub   rsa4096 2014-09-22 [SCA] [expires: 2019-09-21]
@@ -358,11 +359,11 @@ sig          48B783E542BC3DE0 2018-03-14  Bruno Marques (ine5429) <brunomn95@gma
 \subsection*{\textbf{4 - O que é o anel de chaves privadas? Como este está estruturado? Na sua aplicação GPG onde este anel de chaves é armazenado? Quem pode ser acesso a esse porta chaves?}}
 \addcontentsline{toc}{subsection}{Questão 4}
 
-O anel de chaves privadas é uma estrutura de dados responsável em armazenar o par de chaves pública/privada que pertecem a um determinado dono, ou seja, esse anel encontra-se presente apenas na máquina local do respectivo dono da chave. Logo, quem possuir acesso a conta deste usuário na máquina terá acesso ao anel de chaves privadas, porém quando uma pessoa acessa o anel de chaves privadas para utilizar a chave privada, ela deverá forncer a senha que apenas o dono da chave privada deve possuir.
+O anel de chaves privadas é uma estrutura de dados responsável em armazenar o par de chaves pública/privada que pertecem a um determinado dono, ou seja, esse anel encontra-se presente apenas na máquina local do respectivo dono da chave. Logo, quem possuir acesso a conta deste usuário na máquina terá acesso ao anel de chaves privadas, porém quando uma pessoa acessa o anel de chaves privadas para utilizar a chave privada, ela deverá fornecer a senha que apenas o dono da chave privada deve possuir.
 O anel de chaves privadas pode ser visualizado como uma tabela de banco de dados, onde cada linha representa um par de chave pública/privada pertencente ao usuário, além disso, essa tabela contém os seguintes atributos \cite{Stallings:2010:CNS:1824151}: 
 \begin{Verbatim}[commandchars=\\\{\}, fontsize=\footnotesize]
     • Timestamp:    O timestamp de quando o par de chaves foi gerado.
-    • Key ID:       Os 64bits menos significativos da chave pública do par.
+    • Key ID:       Os 64 bits menos significativos da chave pública do par.
     • Public key:   A chave pública do par.
     • Private key:  A chave privada do par, CIFRADA.
     • User ID:      Identificador do usuário.
@@ -375,7 +376,7 @@ O anel de chaves privadas pode ser visualizado como uma tabela de banco de dados
 \subsection*{\textbf{5 - Qual a diferença entre assinar uma chave local e assinar no servidor?}}
 \addcontentsline{toc}{subsection}{Questão 5}
 
-A diferença é que ao assinar localmente, a chave só terá essa assinatura na máquina local e outros usuários não poderão visualizar a sua assinatura sobre esta chave, quando esta assinatura está no servidor, todos os usuários podem acessar o servidor e verificar as assinaturas que uma determinada chave recebeu.
+A diferença é que ao assinar localmente a chave só terá essa assinatura na máquina local e outros usuários não poderão visualizar a sua assinatura sobre esta chave, quando esta assinatura está no servidor, todos os usuários podem acessar o servidor e verificar as assinaturas que uma determinada chave recebeu.
 
 % ----------------------------------------------------------
 % Questão 6
@@ -392,7 +393,7 @@ O banco de dados de confiabilidade, também conhecido como anel de chaves públi
 \subsection*{\textbf{7 - O que são e para que servem as sub-chaves?}}
 \addcontentsline{toc}{subsection}{Questão 7}
 
-Sub-chaves são como chaves normais, porém elas estão automaticamente relacionadas a um par de chaves principal. Elas servem tanto para assinatura como paraa cifragem. Apesar de estarem realcionadas a um par de chaves principal elas podem ser armazenadas separadamente do par de chave principal, assim como serem revogadas independentemente.
+Sub-chaves são como chaves normais, porém elas estão automaticamente relacionadas a um par de chaves principal. Elas servem tanto para assinatura como para cifragem. Apesar de estarem realcionadas a um par de chaves principal elas podem ser armazenadas separadamente do par de chave principal, assim como serem revogadas independentemente.
 
 % ----------------------------------------------------------
 % Questão 8
@@ -415,7 +416,7 @@ Os seguintes comandos foram utilizados para isto:
 \subsection*{\textbf{9 - O que é preciso para criar e manter um servidor de chaves GPG, sincronizado com os demais servidores existentes?}}
 \addcontentsline{toc}{subsection}{Questão 9}
 
-Basicamente é necessário ter um servidor web que ficará conectado continuamente na internet, importar uma base de dados de chaves públicas já existente para não precisar popular uma base de dados do zero, e instalar e executar um daemon que ficará responsável em manter o banco de dados do seu servidor sincronizado com os demais. Além disso, para permitir que os usuário interajam via web com o servidor de chaves é necessário configurar um site para isto.
+Basicamente é necessário ter um servidor web que ficará conectado continuamente na internet, importar uma base de dados de chaves públicas já existente para não precisar popular uma base de dados do zero e instalar e executar um daemon que ficará responsável em manter o banco de dados do seu servidor sincronizado com os demais. Além disso, para permitir que os usuários interajam via web com o servidor de chaves é necessário configurar um site para isto.
 
 % ----------------------------------------------------------
 % Questão 10
