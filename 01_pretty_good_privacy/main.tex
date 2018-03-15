@@ -67,6 +67,7 @@
 % ---
 \usepackage{lipsum}             % para geração de dummy text
 \usepackage{fancyvrb}
+\usepackage{todonotes}
 % ---
         
 % ---
@@ -206,11 +207,13 @@
 % \section*{Introdução}
 % \addcontentsline{toc}{section}{Introdução}
 
-
+\section*{\textbf{Questões e respostas:}}
+\addcontentsline{toc}{section}{Questões e respostas:}
 % ----------------------------------------------------------
 % Questão 1
 % ----------------------------------------------------------
-\section{Criar certificado pgp.}
+\subsection*{\textbf{1 - Criar certificado pgp.}}
+\addcontentsline{toc}{subsection}{Questão 1}
 
 Através do terminal utilizado o comando \texttt{gpg ----full--gen--key}, o passo a passo abaixo foi realizado e o seguinte certificado gerado:
 
@@ -231,7 +234,8 @@ sub   rsa2048 2018-03-13 [E] [expires: 2018-09-09]
 % ----------------------------------------------------------
 % Questão 2
 % ----------------------------------------------------------
-\section{Crie um novo certificado PGP para este trabalho individual (Não use o teu certificado pois ele terá que ser revogado). Coloque esse certificado de testes no servidor PGP. Depois verifique seu status. Então, crie um certificado de revogação e revogue o certificado de testes.}
+\subsection*{\textbf{2 - Crie um novo certificado PGP para este trabalho individual (Não use o teu certificado pois ele terá que ser revogado). Coloque esse certificado de testes no servidor PGP. Depois verifique seu status. Então, crie um certificado de revogação e revogue o certificado de testes.}}
+\addcontentsline{toc}{subsection}{Questão 2}
 
 Um novo certificado para posterior revogação foi gerado com os atributos abaixo elencados:
 
@@ -283,7 +287,7 @@ npk=
 Revocation certificate created.
 \end{Verbatim}
 
-Este certificado de revogação foi então salvo no arquivo \textbf{revog.txt} e utilizou-se o comando \texttt{gpg ----import  \textasciitilde /.gnupg/openpgp--revocs.d/revog.txt} para realizar a revogação desta chave e que posteriormente foi enviada ao servidor PGP, através do comando \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send--keys 6E9ECD78A9CC5EBB}. Para verificar seu status utilizou-se novamento o comando \texttt{gpg ----keyserver keyserver.cais.rnp.br ----search--keys 6E9ECD78A9CC5EBB} que mostrou o certificado como revogado:
+Este certificado de revogação foi então salvo no arquivo ``revog.txt'' e utilizou-se o comando \texttt{gpg ----import  \textasciitilde /.gnupg/openpgp--revocs.d/revog.txt} para realizar a revogação desta chave e que posteriormente foi enviada ao servidor PGP, através do comando \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send--keys 6E9ECD78A9CC5EBB}. Para verificar seu status utilizou-se novamento o comando \texttt{gpg ----keyserver keyserver.cais.rnp.br ----search--keys 6E9ECD78A9CC5EBB} que mostrou o certificado como revogado:
 
 \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
 gpg: data source: http://keyserver.cais.rnp.br:11371
@@ -296,7 +300,8 @@ gpg: data source: http://keyserver.cais.rnp.br:11371
 % ----------------------------------------------------------
 % Questão 3
 % ----------------------------------------------------------
-\section{Pratique a revogação de certificados PGP. Assine um certificado qualquer PGP (de outra pessoa). E envie esse certificado para o servidor PGP. Depois verifique o status do certificado. E então, revogue a assinatura que você fez. Confira o resultado no servidor PGP. Faça um relatório do que você fez, incluindo o KeyID do certificado cuja assinatura você revogou.}
+\subsection*{\textbf{3 - Pratique a revogação de certificados PGP. Assine um certificado qualquer PGP (de outra pessoa). E envie esse certificado para o servidor PGP. Depois verifique o status do certificado. E então, revogue a assinatura que você fez. Confira o resultado no servidor PGP. Faça um relatório do que você fez, incluindo o KeyID do certificado cuja assinatura você revogou.}}
+\addcontentsline{toc}{subsection}{Questão 3}
 
 Foi importado um certificado para a máquina local através do comando \texttt{gpg ----recv--keys 54f950865065a318}. E então utilizados os comandos \texttt{gpg ----sign--key 54f950865065a318} e \texttt{gpg ----keyserver keyserver.cais.rnp.br ----send--keys 54f950865065a318} para respectivamente assiná-lo e enviá-lo para o servidor pgp. Para verificar os status foi utilizado o seguinte comando \texttt{gpg ----list--sigs 54f950865065a318} que resultou no output abaixo:
 
@@ -350,33 +355,50 @@ sig          48B783E542BC3DE0 2018-03-14  Bruno Marques (ine5429) <brunomn95@gma
 % ----------------------------------------------------------
 % Questão 4
 % ----------------------------------------------------------
-\section{O que é o anel de chaves privadas? Como este está estruturado? Na sua aplicação GPG onde este anel de chaves é armazenado? Quem pode ser acesso a esse porta chaves?}
+\subsection*{\textbf{4 - O que é o anel de chaves privadas? Como este está estruturado? Na sua aplicação GPG onde este anel de chaves é armazenado? Quem pode ser acesso a esse porta chaves?}}
+\addcontentsline{toc}{subsection}{Questão 4}
+
+O anel de chaves privadas é uma estrutura de dados responsável em armazenar o par de chaves pública/privada que pertecem a um determinado dono, ou seja, esse anel encontra-se presente apenas na máquina local do respectivo dono da chave. Logo, quem possuir acesso a conta deste usuário na máquina terá acesso ao anel de chaves privadas, porém quando uma pessoa acessa o anel de chaves privadas para utilizar a chave privada, ela deverá forncer a senha que apenas o dono da chave privada deve possuir.
+O anel de chaves privadas pode ser visualizado como uma tabela de banco de dados, onde cada linha representa um par de chave pública/privada pertencente ao usuário, além disso, essa tabela contém os seguintes atributos \cite{Stallings:2010:CNS:1824151}: 
+\begin{Verbatim}[commandchars=\\\{\}, fontsize=\footnotesize]
+    • Timestamp:    O timestamp de quando o par de chaves foi gerado.
+    • Key ID:       Os 64bits menos significativos da chave pública do par.
+    • Public key:   A chave pública do par.
+    • Private key:  A chave privada do par, CIFRADA.
+    • User ID:      Identificador do usuário.
+\end{Verbatim}
 
 
 % ----------------------------------------------------------
 % Questão 5
 % ----------------------------------------------------------
-\section{Qual a diferença entre assinar uma chave local e assinar no servidor?}
+\subsection*{\textbf{5 - Qual a diferença entre assinar uma chave local e assinar no servidor?}}
+\addcontentsline{toc}{subsection}{Questão 5}
 
 A diferença é que ao assinar localmente, a chave só terá essa assinatura na máquina local e outros usuários não poderão visualizar a sua assinatura sobre esta chave, quando esta assinatura está no servidor, todos os usuários podem acessar o servidor e verificar as assinaturas que uma determinada chave recebeu.
 
 % ----------------------------------------------------------
 % Questão 6
 % ----------------------------------------------------------
-\section{O que é e como é organizado o banco de dados de confiabilidade?}
+\subsection*{\textbf{6 - O que é e como é organizado o banco de dados de confiabilidade?}}
+\addcontentsline{toc}{subsection}{Questão 6}
+
+O banco de dados de confiabilidade, também conhecido como anel de chaves públicas, pode ser visto também como uma tabela onde cada linha representa um certificado de chave pública. Associado a cada chava pública existe um campo de ``legitimidade da chave'' que indica o nível de confiança da PGP sobre esta chave pública e sua validade perante determinado usuário. Este campo de legitimidade é influenciado diretamente pelas assinaturas que um determinado certificado recebeu e consequentemente pelas assinaturas que as assinaturas possuem e assim sucessivamente. É desta maneira que a confiabilidade é calculada e estabelecida. 
 
 
 % ----------------------------------------------------------
 % Questão 7
 % ----------------------------------------------------------
-\section{O que são e para que servem as sub-chaves?}
+\subsection*{\textbf{7 - O que são e para que servem as sub-chaves?}}
+\addcontentsline{toc}{subsection}{Questão 7}
 
 Sub-chaves são como chaves normais, porém elas estão automaticamente relacionadas a um par de chaves principal. Elas servem tanto para assinatura como paraa cifragem. Apesar de estarem realcionadas a um par de chaves principal elas podem ser armazenadas separadamente do par de chave principal, assim como serem revogadas independentemente.
 
 % ----------------------------------------------------------
 % Questão 8
 % ----------------------------------------------------------
-\section{Coloque sua foto (ou uma figura qualquer) que represente você em seu certificado GPG.}
+\subsection*{\textbf{8 - Coloque sua foto (ou uma figura qualquer) que represente você em seu certificado GPG.}}
+\addcontentsline{toc}{subsection}{Questão 8}
 
 Os seguintes comandos foram utilizados para isto: 
 \begin{Verbatim}[commandchars=\\\{\}, fontsize=\footnotesize]
@@ -390,31 +412,37 @@ Os seguintes comandos foram utilizados para isto:
 % ----------------------------------------------------------
 % Questão 9
 % ----------------------------------------------------------
-\section{O que é preciso para criar e manter um servidor de chaves GPG, sincronizado com os demais servidores existentes?}
+\subsection*{\textbf{9 - O que é preciso para criar e manter um servidor de chaves GPG, sincronizado com os demais servidores existentes?}}
+\addcontentsline{toc}{subsection}{Questão 9}
 
+Basicamente é necessário ter um servidor web que ficará conectado continuamente na internet, importar uma base de dados de chaves públicas já existente para não precisar popular uma base de dados do zero, e instalar e executar um daemon que ficará responsável em manter o banco de dados do seu servidor sincronizado com os demais. Além disso, para permitir que os usuário interajam via web com o servidor de chaves é necessário configurar um site para isto.
 
 % ----------------------------------------------------------
 % Questão 10
 % ----------------------------------------------------------
-\section{Dê um exemplo de como tornar sigiloso um arquivo usando o GPG. Envie esse arquivo para um colega e que enviar para você outro arquivo cifrado. Você deve decifrar e recuperar o conteúdo original.}
+\subsection*{\textbf{10 - Dê um exemplo de como tornar sigiloso um arquivo usando o GPG. Envie esse arquivo para um colega e que enviar para você outro arquivo cifrado. Você deve decifrar e recuperar o conteúdo original.}}
+\addcontentsline{toc}{subsection}{Questão 10}
 
-Um exemplo de tornar um arquivo sigiloso é mostrado a seguir. Primeiramente é necessário ter a chave pública do destinatário localmente e para isso utilizou-se o comando  \texttt{gpg ----recv--key B461AD97}, feito isso cria-se o arquivo, por exemplo, "sigiloso.txt", que será cifrado para se tornar de fato sigiloso, para isso utiliza-se o seguinte comando \texttt{gpg ----encrypt ----recipient B461AD97 sigiloso.txt} que irpa gerar o arquivo cifrado "sigiloso.txt.gpg" que será enviado ao destinatário por e-mail (\texttt{johannwestphall@gmail.com}).
+Um exemplo de tornar um arquivo sigiloso é mostrado a seguir. Primeiramente é necessário ter a chave pública do destinatário localmente e para isso utilizou-se o comando  \texttt{gpg ----recv--key B461AD97}, feito isso cria-se o arquivo, por exemplo, ``sigiloso.txt'', que será cifrado para se tornar de fato sigiloso, para isso utiliza-se o seguinte comando \texttt{gpg ----encrypt ----recipient B461AD97 sigiloso.txt} que irá gerar o arquivo cifrado ``sigiloso.txt.gpg'' que será enviado ao destinatário por e-mail (\texttt{johannwestphall@gmail.com}).
 
-O arquivo que recebi tem o nome de "RelatorioSeg.gpg", para decifrar este arquivo e recuperar seu conteúdo original o seguinte comando foi utilizado \texttt{gpg ----decrypt RelatorioSeg.gpg} que revelou o conteúdo do arquivo, que consistia das questões em branco deste relatório. 
+O arquivo que recebi tem o nome de ``RelatorioSeg.gpg'', para decifrar este arquivo e recuperar seu conteúdo original o seguinte comando foi utilizado \texttt{gpg ----decrypt RelatorioSeg.gpg} que revelou o conteúdo do arquivo, que consistia das questões em branco deste relatório. 
 
 % ----------------------------------------------------------
 % Questão 11
 % ----------------------------------------------------------
-\section{Dê um exemplo de como assinar um arquivo (assinatura anexada e outro com assinatura separada), usando o GPG. Envie uma mensagem assinada para um colega. Esse colega deve enviar para você outra mensagem assinada. Verifique se a assinatura está correta.}
+\subsection*{\textbf{11 - Dê um exemplo de como assinar um arquivo (assinatura anexada e outro com assinatura separada), usando o GPG. Envie uma mensagem assinada para um colega. Esse colega deve enviar para você outra mensagem assinada. Verifique se a assinatura está correta.}}
+\addcontentsline{toc}{subsection}{Questão 11}
 
-Para assinar um arquivo com assinatura anexada foi utilizado o seguinte comando \texttt{gpg --s attach--sign.txt} que gerou o arquivo "attach--sign.txt.gpg" apartir do qual é possível fazer a verificação da assinatura do arquivo pelo comando \texttt{gpg ----verify attach--sign.txt.gpg}. Para assinatura separada o seguinte comando foi utilizado \texttt{gpg --b detach--sign.txt} que gerou o arquivo "detach--sign.txt.sig", para realizar a verificação da assinatura do documento é necessário utilizar o documento em texto puro e o arquivo assinado com o seguinte comando \texttt{gpg ----verify detach--sign.txt.sig detach--sign.txt}.
+Para assinar um arquivo com assinatura anexada foi utilizado o seguinte comando \texttt{gpg --s attach--sign.txt} que gerou o arquivo ``attach--sign.txt.gpg'' apartir do qual é possível fazer a verificação da assinatura do arquivo pelo comando \texttt{gpg ----verify attach--sign.txt.gpg}. Para assinatura separada o seguinte comando foi utilizado \texttt{gpg --b detach--sign.txt} que gerou o arquivo ``detach--sign.txt.sig'', para realizar a verificação da assinatura do documento é necessário utilizar o documento em texto puro e o arquivo assinado com o seguinte comando \texttt{gpg ----verify detach--sign.txt.sig detach--sign.txt}.
 
-O arquivo recebido para verificação de assinatura foi o "aaaa", a verificação de assinatura foi feita com o seguinte comando \texttt{gpg ----verify } tendo como saída o texto abaixo.
+O arquivo recebido para verificação de assinatura foi o ``RelatorioSegAssinado.gpg'', a verificação de assinatura foi feita com o seguinte comando \texttt{gpg ----verify "RelatorioSeg
+Assinado.gpg"} tendo como saída o texto abaixo.
 
 \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
-
+gpg: Signature made qua 14 mar 2018 18:00:57 -03
+gpg:                using RSA key 6AE4C628B461AD97
+gpg: Good signature from "teste (teste) <johannwestphall@gmail.com>"
 \end{Verbatim}
-
 
 
 % ---
@@ -439,7 +467,6 @@ O arquivo recebido para verificação de assinatura foi o "aaaa", a verificaçã
 % ----------------------------------------------------------
 \nocite{GnuPrivacyGuardHowto}
 \nocite{subkeys_debian}
-\nocite{Stallings:2010:CNS:1824151}
 \bibliography{bibliography}
 
 \end{document}
