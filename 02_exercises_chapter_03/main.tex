@@ -104,7 +104,7 @@
 \autor{Bruno Marques do Nascimento\thanks{brunomn95@gmail.com \hspace{1mm} - \hspace{1mm} Universidade Federal de Santa Catarina}}
 \instituicao{Universidade Federal de Santa Catarina}
 \local{Florianópolis - SC, Brasil}
-\data{14 de Março de 2018}
+\data{24 de Março de 2018}
 % ---
 
 % ---
@@ -219,7 +219,7 @@
 \subsection*{\textbf{3.7 - Show that DES decryption is, in fact, the inverse of DES encryption.}}
 \addcontentsline{toc}{subsection}{Questão 3.7}
 
-O DES faz uso do Cifrador de Feistel o qual é provado que seu processo de cifragem é o inverso do de descifragem, como pode ser visto na figura 3.3 de \cite{Stallings:2005:CNS:1076613}. Para o DES precisamos nos atentar as modificações que são realizadas externamente ao cifrador de Feistel utilizado, que são o uso da tabela IP e IP\textsuperscript{-1} e o uso do \texttt{Swap 32 bits}. Por definição a tabela IP\textsuperscript{-1} é a inversa da IP, logo um texto cifrado teve como últimas modificações um \texttt{swap de 32 bits} e sua permutação pela tabela IP\textsuperscript{-1}, logo para decifrá-lo é necessário realizar a operação inversa para gerar o valores corretos de entrada para o cifrador de Feistel. Para desfazer a permutação realizada por IP\textsuperscript{-1} é necessário passar o texto cifrado por uma permutação por IP e depois por um \texttt{swap de 32 bits} que é por si só o inverso de outro \texttt{swap de 32bits} para um entrada de 64 bits. Ao final das rodadas do cifrador de Feistel no processo de decifragem do DES é então necessário desfazer a permutação realizada no processo de cifragem do texto através da tabela IP, para ralizar a operação inversa uitliza-se a tabela IP\textsuperscript{-1}, para então obter o texto original. Desta maneira, é mostrado que o processo de decifragem do DES é de fato o processo inverso de cifragem do mesmo. 
+O DES faz uso do Cifrador de Feistel o qual é provado que seu processo de cifragem é o inverso do de descifragem, como pode ser visto na figura 3.3 de \cite{Stallings:2005:CNS:1076613}. Para o DES precisamos nos atentar as modificações que são realizadas externamente ao cifrador de Feistel utilizado, que são o uso da tabela IP e IP\textsuperscript{-1} e o uso do \texttt{Swap 32 bits}. Por definição a tabela IP\textsuperscript{-1} é a inversa da IP, logo um texto cifrado teve como últimas modificações um \texttt{swap de 32 bits} e sua permutação pela tabela IP\textsuperscript{-1}, logo para decifrá-lo é necessário realizar a operação inversa para gerar o valores corretos de entrada para o cifrador de Feistel. Para desfazer a permutação realizada por IP\textsuperscript{-1} é necessário passar o texto cifrado por uma permutação por IP e depois por um \texttt{swap de 32 bits} que é por si só o inverso de outro \texttt{swap de 32bits} para um entrada de 64 bits. Ao final das rodadas do cifrador de Feistel no processo de decifragem do DES é então necessário desfazer a permutação realizada no processo de cifragem do texto através da tabela IP, para realizar a operação inversa uitliza-se a tabela IP\textsuperscript{-1}, para então obter o texto original. Desta maneira, é mostrado que o processo de decifragem do DES é de fato o processo inverso de cifragem do mesmo. 
 
 % ----------------------------------------------------------
 % Questão 2
