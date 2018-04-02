@@ -1,0 +1,723 @@
+%% abtex2-modelo-artigo.tex, v-1.9.6 laurocesar
+%% Copyright 2012-2016 by abnTeX2 group at http://www.abntex.net.br/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+    % -- opções da classe memoir --
+    article,            % indica que é um artigo acadêmico
+    11pt,               % tamanho da fonte
+    oneside,            % para impressão apenas no recto. Oposto a twoside
+    a4paper,            % tamanho do papel. 
+    % -- opções da classe abntex2 --
+    %chapter=TITLE,     % títulos de capítulos convertidos em letras maiúsculas
+    %section=TITLE,     % títulos de seções convertidos em letras maiúsculas
+    %subsection=TITLE,  % títulos de subseções convertidos em letras maiúsculas
+    %subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
+    % -- opções do pacote babel --
+    english,            % idioma adicional para hifenização
+    brazil,             % o último idioma é o principal do documento
+    sumario=tradicional,
+    ]{abntex2}
+
+
+% ---
+% PACOTES
+% ---
+
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{lmodern}            % Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}        % Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}     % Codificacao do documento (conversão automática dos acentos)
+% \usepackage{indentfirst}        % Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl}            % Lista de simbolos
+\usepackage{color}              % Controle das cores
+\usepackage{graphicx}           % Inclusão de gráficos
+\usepackage{microtype}          % para melhorias de justificação
+% ---
+        
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}             % para geração de dummy text
+\usepackage{fancyvrb}
+\usepackage{todonotes}
+\usepackage{listings}
+% ---
+        
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}     % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}   % Citações padrão ABNT
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+    \ifcase #1 %
+        Nenhuma citação no texto.%
+    \or
+        Citado na página #2.%
+    \else
+        Citado #1 vezes nas páginas #2.%
+    \fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Relatório INE5429 - Segurança em Computação\\ 
+        Provedores de Serviços Criptográficos}
+\autor{Bruno Marques do Nascimento\thanks{brunomn95@gmail.com \hspace{1mm} - \hspace{1mm} Universidade Federal de Santa Catarina}}
+\instituicao{Universidade Federal de Santa Catarina}
+\local{Florianópolis - SC, Brasil}
+\data{01 de Abril de 2018}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+        %pagebackref=true,
+        pdftitle={\@title}, 
+        pdfauthor={\@author},
+        pdfsubject={Modelo de artigo científico com abnTeX2},
+        pdfcreator={LaTeX with abnTeX2},
+        pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+        colorlinks=true,            % false: boxed links; true: colored links
+        linkcolor=blue,             % color of internal links
+        citecolor=blue,             % color of links to bibliography
+        filecolor=magenta,              % color of file links
+        urlcolor=blue,
+        bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[           % INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
+
+\maketitle
+
+
+% resumo em português
+\begin{resumoumacoluna}
+    Relatório de aula da disciplina INE5429 - Segurança em computação, com o objetivo de conhecer e comparar provedores de serviços criptográficos. Este documento visa responder as perguntas elencadas pelo professor ministrante da disciplina Ricardo Felipe Custódio na plataforma moodle.
+ 
+ \vspace{\onelineskip}
+ 
+\end{resumoumacoluna}
+
+% ]                 % FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+% \section*{Introdução}
+% \addcontentsline{toc}{section}{Introdução}
+
+\section*{\textbf{Comparação entre Crypto++ e cryptlib.}}
+\addcontentsline{toc}{section}{Questões e respostas:}
+
+\subsection*{\textbf{1 - Geral:}}
+\addcontentsline{toc}{subsection}{Geral}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+    Crypto++ é uma biblioteca grá-
+tis e de código aberto para a lin-
+guagem de programação C++. Lançada
+no ano de 1995, esta biblioteca su-
+porta tanto arquitetura 32s como 64
+bits, nas mais diversas plataformas
+e sistemas operacionais. É uma bi-
+blioteca de alto nível, onde usuá-
+rios não necessitam entender a fun-
+do como os algoritmos criptográfi-
+cos estão sendo implementados.
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+    Também é uma biblioteca de có-
+digo aberto, esta escrita em C. Ela
+prove uma interface de alto nível,
+permitindo ao usuário adicionar re-
+cursos de segurança e criptografia
+sem a necessidade de saber detalhes
+em baixo nível dos algoritmos crip-
+tográficos de autenticação e cifra-
+gem/decifragem.
+
+
+\end{Verbatim}
+\end{minipage}
+
+\subsection*{\textbf{2 - Arquitetura:}}
+\addcontentsline{toc}{subsection}{Arquiteturas}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+    Esta é uma biblioteca que for-
+nece implementações criptográficas,
+diferente da cryptlib, seu nível de
+abstração é um pouco menor exigindo
+que o usuário conheça bem o funcio-
+namento dos algorítmos criptográfi-
+cos que pretende utilizar. Por ser
+open source sua arquitetura permite
+que o usuário também implemente al-
+goritmos próprios e os acople à bi-
+blioteca.
+
+
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+    Consiste de um conjunto de ca-
+madas de serviços de segurança, in-
+do de interfaces de alto nível até 
+camadas mais baixas onde os algorí-
+timos utilizados estão implementa-
+dos. Essas várias camadas na arqui-
+tetura permite que os mais diversos 
+níveis de usuários utilizem a bi-
+blioteca, dando a liberdade para 
+usuários experientes poderem escre-
+ver os próprios algorítimos para 
+trabalhar em conjunto com a biblio-
+teca.
+\end{Verbatim}
+\end{minipage}
+
+\subsection*{\textbf{3 - Algoritmos assimétricos:}}
+\addcontentsline{toc}{subsection}{Algoritmos assimétricos}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+• RSA
+• DSA
+• Determinsitic DSA (RFC 6979)
+• ElGamal
+• Nyberg-Rueppel (NR)
+• Rabin-Williams (RW)
+• ECGDSA
+• LUC
+• LUCELG
+• DLIES (variants of DHAES)
+• ESIGN
+
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+• RSA
+• DSA
+
+• ElGamal
+
+
+• ECDSA
+
+
+
+
+
+\end{Verbatim}
+\end{minipage}
+
+
+\subsection*{\textbf{4 - Algoritmos simétricos:}}
+\addcontentsline{toc}{subsection}{Algoritmos simétricos}
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+• AES
+• ARIA
+• ARC4
+• Blowfish
+• BTEA
+• Camellia
+• CAST128
+• CAST256
+• DES
+• 2-key Triple-DES
+• 3-key Triple-DES
+• DESX
+• GOST
+• IDEA
+• Luby-Rackoff
+• Kalyna (128/256/512)
+• MARS
+• RC2
+• RC5
+• RC6
+• SAFER-K
+• SAFER-SK
+• SEED
+• Serpent
+• SHACAL-2
+• SHARK
+• SKIPJACK
+• SM4
+• Square
+• TEA
+• 3-Way
+• Threefish (256/512/1024)
+• Twofish
+• XTEA
+• ChaCha (ChaCha-8/12/20)
+• Panama-LE
+• Panama-BE
+• Salsa20
+• SEAL-LE
+• SEAL-BE
+• WAKE
+• XSalsa20
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+• AES
+
+• RC4 (ARC4)
+
+
+
+
+• CAST
+
+• DES
+• Triple-DES
+
+
+• IDEA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{Verbatim}
+\end{minipage}
+
+\subsection*{\textbf{5 - Funções hash:}}
+\addcontentsline{toc}{subsection}{Funções hash}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+• BLAKE2b
+• BLAKE2s
+• Keccack (F1600)
+• SHA-1
+• SHA-224
+• SHA-256
+• SHA-384
+• SHA-512
+• SHA-3
+• Poly1305
+• SipHash
+• Tiger
+• RIPEMD (128, 256, 160, 320)
+• SM3
+• WHIRLPOOL
+• MD2
+• MD4
+• MD5
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+
+
+
+• SHA-1
+• SHA-2
+• SHA-256
+
+
+• SHA-3
+
+
+
+• RIPMED-160
+
+• WHIRLPOOL
+
+
+• MD5
+\end{Verbatim}
+\end{minipage}
+
+\subsection*{\textbf{6 - Funções mac:}}
+\addcontentsline{toc}{subsection}{Funções mac}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+• BLAKE2b
+• BLAKE2s
+• CMAC
+• CBC-MAC
+• DMAC
+• GMAC (GCM)
+• HMAC
+• Poly1305
+• SipHash
+• Two-Track-MAC
+• VMAC
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+
+
+
+
+
+
+• HMAC-SHA1
+• HMAC-SHA2 MAC
+
+
+
+\end{Verbatim}
+\end{minipage}
+
+\subsection*{\textbf{7 - Suporte a hardware:}}
+\addcontentsline{toc}{subsection}{Suporte a hardware}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+
+
+
+
+
+
+
+
+
+
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+• Crypto smart cards
+• Dallas iButtons
+• Datakeys/iKeys
+• Fortezza cards
+• Hardware crypto accelerators
+• Hardware security modules (HSMs)
+• PCMCIA crypto tokens
+• PCI crypto cards
+• PKCS #11 devices
+• USB tokens
+\end{Verbatim}
+\end{minipage}
+
+
+\subsection*{\textbf{8 - Algoritmos de geração:}}
+\addcontentsline{toc}{subsection}{Algoritmos de geração}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+• Key generation/derivation
+• Prime number generation
+• Pseudo random number generation:
+  - NullRNG()
+  - LC_RNG
+  - RandomPool
+  - BlockingRng
+  - NonblockingRng
+  - AutoSeededRandomPool
+  - AutoSeededX917RNG
+  - NIST Hash_DRBG and HMAC_DRBG
+  - RDRAND
+  - RDSEED
+  - MersenneTwister (MT19937 and
+                     MT19937-AR)
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+• Key generation/derivation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{Verbatim}
+\end{minipage}
+
+\subsection*{\textbf{9 - Algoritmos de acordo de chaves:}}
+\addcontentsline{toc}{subsection}{Algoritmos de acordo de chaves}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+• Diffie-Hellman (DH)
+• Unified Diffie-Hellman (DH2)
+• Menezes-Qu-Vanstone (MQV)
+• Hashed MQV (HMQV)
+• Fully Hashed MQV (FHMQV)
+• ECDH
+• ECMQV
+• ECHMQV
+• ECFHMQV
+• LUCDIF
+• XTR-DH
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+• Diffie-Hellman (DH)
+
+
+
+
+• ECDH
+
+
+
+
+
+\end{Verbatim}
+\end{minipage}
+
+
+\subsection*{\textbf{10 - Tipo de licença:}}
+\addcontentsline{toc}{subsection}{Tipo de licença}
+
+\par\noindent
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Crypto ++
+
+    A versão compilada está sob di-
+reitos autorais de acordo com a li-
+cença "Boost Software License 1.0".
+Enquanto que os arquivos individu-
+ais na compilação são todos de do-
+mínio público.
+\end{Verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{Verbatim}[frame=single]
+             Cryptlib
+
+    É distribuido sob licença dupla
+que permite uso livre e open-source
+sob uma licença compatível com a 
+GPL denominada Sleepycat. E para
+código fechado o uso sobre uma li-
+cença comercial padrão.
+\end{Verbatim}
+\end{minipage}
+
+ \vspace{\onelineskip}
+ \vspace{\onelineskip}
+ \vspace{\onelineskip}
+
+% ---
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+% ---
+\bookmarksetup{startatroot}% 
+% ---
+
+% ---
+% Conclusão
+% ---
+% \section*{Considerações finais}
+% \addcontentsline{toc}{section}{Considerações finais}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\nocite{cryptlib}
+\nocite{cryptlib_manual}
+\nocite{cryptopp}
+\bibliography{bibliography}
+
+\end{document}
