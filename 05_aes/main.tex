@@ -1,0 +1,1164 @@
+%% abtex2-modelo-artigo.tex, v-1.9.6 laurocesar
+%% Copyright 2012-2016 by abnTeX2 group at http://www.abntex.net.br/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+    % -- opções da classe memoir --
+    article,            % indica que é um artigo acadêmico
+    11pt,               % tamanho da fonte
+    oneside,            % para impressão apenas no recto. Oposto a twoside
+    a4paper,            % tamanho do papel. 
+    % -- opções da classe abntex2 --
+    %chapter=TITLE,     % títulos de capítulos convertidos em letras maiúsculas
+    %section=TITLE,     % títulos de seções convertidos em letras maiúsculas
+    %subsection=TITLE,  % títulos de subseções convertidos em letras maiúsculas
+    %subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
+    % -- opções do pacote babel --
+    english,            % idioma adicional para hifenização
+    brazil,             % o último idioma é o principal do documento
+    sumario=tradicional,
+    ]{abntex2}
+
+
+% ---
+% PACOTES
+% ---
+\usepackage[table,xcdraw]{xcolor}
+
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{lmodern}            % Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}        % Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}     % Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}        % Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl}            % Lista de simbolos
+\usepackage{color}              % Controle das cores
+\usepackage{graphicx}           % Inclusão de gráficos
+\usepackage{microtype}          % para melhorias de justificação
+% ---
+        
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}             % para geração de dummy text
+\usepackage{fancyvrb}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage[procnames]{listings}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{graphics}
+% ---
+        
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}     % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}   % Citações padrão ABNT
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+    \ifcase #1 %
+        Nenhuma citação no texto.%
+    \or
+        Citado na página #2.%
+    \else
+        Citado #1 vezes nas páginas #2.%
+    \fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Trabalho Individual INE5429\\ Segurança em Computação\\ 
+        AES e S-AES}
+\autor{Bruno Marques do Nascimento\thanks{brunomn95@gmail.com \hspace{1mm} - \hspace{1mm} Universidade Federal de Santa Catarina \hspace{1mm} - \hspace{1mm} Matrícula: 15104098}}
+\instituicao{Universidade Federal de Santa Catarina}
+\local{Florianópolis - SC, Brasil}
+\data{21 de Abril de 2018}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+        %pagebackref=true,
+        pdftitle={\@title}, 
+        pdfauthor={\@author},
+        pdfsubject={Modelo de artigo científico com abnTeX2},
+        pdfcreator={LaTeX with abnTeX2},
+        pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+        colorlinks=true,            % false: boxed links; true: colored links
+        linkcolor=blue,             % color of internal links
+        citecolor=blue,             % color of links to bibliography
+        filecolor=magenta,              % color of file links
+        urlcolor=blue,
+        bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[           % INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
+
+\maketitle
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\section{\textbf{S-AES}} % (fold)
+\label{sec:s_aes}
+
+\begin{table}[H]
+\centering
+\caption{Dados de entrada}
+\label{table-input-data}
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}c |c|c|}
+\hline
+-                      & \cellcolor[HTML]{C0C0C0}\textbf{Decimal} & \cellcolor[HTML]{C0C0C0}\textbf{Hex} \\ \hline
+\textbf{Texto Claro}   & 10022                                    & 0x2726                               \\ \hline
+\textbf{Chave secreta} & 8022                                     & 0x1F56                               \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Representação de bits - Texto claro}
+\label{input-data-bits}
+\begin{tabular}{|l|l|}
+\hline
+0010 & 0010 \\ \hline
+0111 & 0110 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Representação de nibbles - Texto claro}
+\label{input-data-nibbles}
+\begin{tabular}{|l|l|}
+\hline
+2 & 2 \\ \hline
+7 & 6 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Representação de bits - Chave secreta}
+\label{input-key-bits}
+\begin{tabular}{|c|c|}
+\hline
+$w_0$ & $w_1$ \\ \hline
+0001 1111 & 0101 0110 \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{\textbf{Expansão da chave}}
+
+\begin{align*}
+  \mathbf{w_2} &= w_0 &&\oplus g(w_1) \\
+      &= w_0 &&\oplus Rcon(1) &&\oplus SubNib(RotNib(w_1)) \\
+      &= w_0 &&\oplus Rcon(1) &&\oplus SubNib(RotNib(0101 \ 0110)) \\
+      &= w_0 &&\oplus Rcon(1) &&\oplus SubNib(0110 \ 0101) \\
+      &= w_0 &&\oplus Rcon(1) &&\oplus 1000 \ 0001 \\
+      &= w_0 &&\oplus 1000 \ 0000 &&\oplus 1000 \ 0001 \\
+      &= w_0 &&\oplus 0000 \ 0001 \\
+      &= 0001 \ 1111 &&\oplus 0000 \ 0001 \\
+      &= \mathbf{0001 \ 1110} \\\\
+  \mathbf{w_3} &= w_2 \oplus w_1 \\
+      &= 0001 \ 1110 \oplus 0101 \ 0110 \\
+      &= \mathbf{0100 \ 1000} \\\\
+  \mathbf{w_4} &= w_2 &&\oplus g(w_3) \\
+      &= w_2 &&\oplus Rcon(2) &&\oplus SubNib(RotNib(w_3)) \\
+      &= w_2 &&\oplus Rcon(2) &&\oplus SubNib(RotNib(0100 \ 1000)) \\
+      &= w_2 &&\oplus Rcon(2) &&\oplus SubNib(1000 \ 0100) \\
+      &= w_2 &&\oplus Rcon(2) &&\oplus 0110 \ 1101 \\
+      &= w_2 &&\oplus (10000\mod{10011}) | 0000 &&\oplus 0110 \ 1101 \\
+      &= w_2 &&\oplus 0011 \ 0000 &&\oplus 0110 \ 1101 \\
+      &= w_2 &&\oplus 0101 \ 1101 \\
+      &= 0001 \ 1110 &&\oplus 0101 \ 1101 \\
+      &= \mathbf{0100 \ 0011} \\\\
+  \mathbf{w_5} &= w_4 &&\oplus w_3 \\
+      &= 0100 \ 0011 &&\oplus 0100 \ 1000 \\
+      &= \mathbf{0000 \ 1011}
+\end{align*}
+
+\begin{table}[H]
+\centering
+\caption{Expansão - Chave secreta}
+\label{expansion-key-bits}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline \cellcolor[HTML]{C0C0C0} $w_0$   & \cellcolor[HTML]{C0C0C0} $w_1$   & \cellcolor[HTML]{C0C0C0} $w_2$   & \cellcolor[HTML]{C0C0C0} $w_3$   & \cellcolor[HTML]{C0C0C0} $w_4$   & \cellcolor[HTML]{C0C0C0} $w_5$    \\ \hline
+0001 1111 & 0101 0110 & 0001 1110 & 0100 1000 & 0100 0011 & 0000 1011  \\ \hline
+1 F       & 5 6       & 1 E       & 4 8       & 4 3       & 0 B  \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{\textbf{Encriptação}}
+\label{sub:encriptacao}
+
+\subsubsection{\textbf{Rodada 0}}
+\label{subsub:rodada0}
+
+\subsubsubsection{\textbf{Incluir chave da rodada}}
+\label{subsubsub:include-key-round0}
+
+\begin{table}[H]
+\centering
+\caption{Inclusão da chave}
+\label{input-data-nibbles-round0}
+\begin{tabular}{|l|l|}
+\hline
+0010 (0x2) & 0010 (0x2) \\ \hline
+0111 (0x7)& 0110 (0x6)\\ \hline
+\end{tabular}
+$\oplus$
+\begin{tabular}{|l|l|}
+\hline
+0001 (0x1) & 0101 (0x5) \\ \hline
+1111 (0xF) & 0110 (0x6) \\ \hline
+\end{tabular}
+$=$
+\begin{tabular}{|l|l|}
+\hline
+0011 (0x3) & 0111 (0x7)\\ \hline
+1000 (0x8) & 0000 (0x0)\\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsection{\textbf{Rodada 1}}
+\label{subsub:rodada1}
+
+\subsubsubsection{\textbf{Substituição de nibble}}
+\label{subsubsub:substituicao-nibble-round1}
+
+\begin{table}[H]
+\centering
+\caption{Substituição de nibble}
+\label{round1-nibbles-change}
+\begin{tabular}{|l|}
+\hline
+$s_{0,0}$  \\ \hline
+0011 (0x3)      \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{0,0}$  \\ \hline
+1011 (0xB)       \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{1,0}$  \\ \hline
+1000 (0x8)      \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{1,0}$  \\ \hline
+0110 (0x6)       \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{0,1}$  \\ \hline
+0111 (0x7)      \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{0,1}$  \\ \hline
+0101 (0x5)       \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{1,1}$  \\ \hline
+0000 (0x0)      \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{1,1}$  \\ \hline
+1001 (0x9)       \\ \hline
+\end{tabular}
+
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Deslocar linhas}}
+\label{subsubsub:deslocar-linha-round1}
+
+\begin{table}[H]
+\centering
+\caption{Deslocamento de linha}
+\label{tabela-desloc-linha}
+\begin{tabular}{|l|l|}
+\hline
+1011 (0xB) & 0101 (0x5) \\ \hline
+0110 (0x6) & 1001 (0x9) \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|l|}
+\hline
+1011 (0xB) & 0101 (0x5) \\ \hline
+1001 (0x9) & 0110 (0x6) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Misturar colunas}}
+\label{subsubsub:misturar-coluna-round1}
+
+\begin{align*}
+\mathbf{S'_{0,0}} &= S_{0,0} \oplus (4 \cdot S_{1,0}) \\
+                  &= 1011 \oplus ((x^2 \cdot (x^3 + 1)) \mod (x^4 + x + 1)) \\
+                  &= 1011 \oplus ((x^5 + x^2) \mod (x^4 + x + 1)) \\
+                  &= 1011 \oplus (-x) \\
+                  &= 1011 \oplus (x) \\
+                  &= 1011 \oplus 0010 \\
+                  &= \mathbf{1001} \\\\
+\mathbf{S'_{1,0}} &= (4 \cdot S_{0,0}) \oplus S_{1,0}  \\
+                  &= ((x^2 \cdot (x^3+x+1)) \mod (x^4 + x + 1)) \oplus 1001 \\
+                  &= ((x^5 + x^3 + x^2) \mod (x^4 + x + 1)) \oplus 1001 \\
+                  &= (x^3-x) \oplus 1001 \\
+                  &= (x^3+x) \oplus 1001 \\
+                  &= 1010 \oplus 1001 \\
+                  &= \mathbf{0011} \\\\
+\mathbf{S'_{0,1}} &= S_{0,1} \oplus (4 \cdot S_{1,1}) \\
+                  &= 0101 \oplus (x^2 \cdot (x^2 + x)) \mod (x^4 + x + 1) \\
+                  &= 0101 \oplus (x^4 + x^3) \mod (x^4 + x + 1) \\
+                  &= 0101 \oplus (x^3-x-1) \\
+                  &= 0101 \oplus 1011 \\
+                  &= \mathbf{1110} \\\\
+\mathbf{S'_{1,1}} &= (4 \cdot S_{0,1}) \oplus S_{1,1}  \\
+                  &= (x^2 \cdot (x^2+1) \mod (x^4 + x + 1)) \oplus 0110) \\
+                  &= (x^4+x^2) \mod (x^4 + x + 1) \oplus 0110) \\
+                  &= (x^2-x-1) \oplus 0110) \\
+                  &= 0111 \oplus 0110) \\
+                  &= \mathbf{0001} \\\\
+\end{align*}
+
+\begin{table}[H]
+\centering
+\caption{Saída: Mistura de colunas}
+\label{tabela-mistura-coluna}
+\begin{tabular}{|l|l|}
+\hline
+1001 (0x9) & 1110 (0xE) \\ \hline
+0011 (0x3) & 0001 (0x1) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Incluir chave da rodada}}
+\label{subsubsub:include-key-round1}
+
+\begin{table}[H]
+\centering
+\caption{Inclusão da chave}
+\label{table-key_include-round1}
+\begin{tabular}{|l|l|}
+\hline
+1001 (0x9) & 1110 (0xE) \\ \hline
+0011 (0x3) & 0001 (0x1) \\ \hline
+\end{tabular}
+$\oplus$
+\begin{tabular}{|l|l|}
+\hline
+0001 (0x1) & 0100 (0x4) \\ \hline
+1110 (0xE) & 1000 (0x8) \\ \hline
+\end{tabular}
+$=$
+\begin{tabular}{|l|l|}
+\hline
+1000 (0x8) & 1010 (0xA)\\ \hline
+1101 (0xD) & 1001 (0x9)\\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsection{\textbf{Rodada 2}}
+\label{subsub:rodada2}
+
+\subsubsubsection{\textbf{Substituição de nibble}}
+\label{subsubsub:substituicao-nibble-round2}
+
+\begin{table}[H]
+\centering
+\caption{Substituição de nibble}
+\label{round1-nibbles-change}
+\begin{tabular}{|l|}
+\hline
+$s_{0,0}$  \\ \hline
+1000 (0x8)      \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{0,0}$  \\ \hline
+0110 (0x6)       \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{1,0}$  \\ \hline
+1101 (0xD)      \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{1,0}$  \\ \hline
+1110 (0xE)       \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{0,1}$  \\ \hline
+1010 (0xA)      \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{0,1}$  \\ \hline
+0000 (0x0)       \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{1,1}$  \\ \hline
+1001 (0x9)      \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{1,1}$  \\ \hline
+0010 (0x2)       \\ \hline
+\end{tabular}
+
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Deslocar linhas}}
+\label{subsubsub:deslocar-linha-round2}
+
+\begin{table}[H]
+\centering
+\caption{Deslocamento de linha}
+\label{tabela-desloc-linha-round2}
+\begin{tabular}{|l|l|}
+\hline
+0110 (0x6) & 0000 (0x0) \\ \hline
+1110 (0xE) & 0010 (0x2) \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|l|}
+\hline
+0110 (0x6) & 0000 (0x0) \\ \hline
+0010 (0x2) & 1110 (0xE) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Incluir chave da rodada}}
+\label{subsubsub:include-key-round2}
+
+\begin{table}[H]
+\centering
+\caption{Inclusão da chave}
+\label{table-key_include-round2}
+\begin{tabular}{|l|l|}
+\hline
+0110 (0x6) & 0000 (0x0) \\ \hline
+0010 (0x2) & 1110 (0xE) \\ \hline
+\end{tabular}
+$\oplus$
+\begin{tabular}{|l|l|}
+\hline
+0100 (0x4) & 0000 (0x0) \\ \hline
+0011 (0x3) & 1011 (0xB) \\ \hline
+\end{tabular}
+$=$
+\begin{tabular}{|l|l|}
+\hline
+0010 (0x2) & 0000 (0x0) \\ \hline
+0001 (0x1) & 0101 (0x5) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Saída: Texto Cifrado}}
+\label{subsubsub:texto-cifrado-s-aes}
+\indent\textbf{Binário}: 0010 0001 0000 0101\\
+\indent\textbf{Hexadecimal}: 0x2105
+
+
+\subsection{\textbf{Decriptação}}
+\label{sub:decriptacao}
+
+\subsubsection{\textbf{Rodada 0}}
+\label{subsub:rodada0-dec}
+
+\subsubsubsection{\textbf{Incluir chave da rodada}}
+\label{subsubsub:include-key-round0-dec}
+
+\begin{table}[H]
+\centering
+\caption{Inclusão da chave}
+\label{table-key_include-round0-dec}
+\begin{tabular}{|l|l|}
+\hline
+0010 (0x2) & 0000 (0x0) \\ \hline
+0001 (0x1) & 0101 (0x5) \\ \hline
+\end{tabular}
+$\oplus$
+\begin{tabular}{|l|l|}
+\hline
+0100 (0x4) & 0000 (0x0) \\ \hline
+0011 (0x3) & 1011 (0xB) \\ \hline
+\end{tabular}
+$=$
+\begin{tabular}{|l|l|}
+\hline
+0110 (0x6) & 0000 (0x0) \\ \hline
+0010 (0x2) & 1110 (0xE) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsection{\textbf{Rodada 1}}
+\label{subsub:rodada1-dec}
+
+\subsubsubsection{\textbf{Deslocar linhas invertidas}}
+\label{subsubsub:deslocar-linha-round1-dec}
+
+\begin{table}[H]
+\centering
+\caption{Deslocamento de linha invetida}
+\label{tabela-desloc-linha-round1-dec}
+\begin{tabular}{|l|l|}
+\hline
+0110 (0x6) & 0000 (0x0) \\ \hline
+0010 (0x2) & 1110 (0xE) \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|l|}
+\hline
+0110 (0x6) & 0000 (0x0) \\ \hline
+1110 (0xE) & 0010 (0x2) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Substituição de nibble invertido}}
+\label{subsubsub:substituicao-nibble-round1-dec}
+
+\begin{table}[H]
+\centering
+\caption{Substituição de nibble invertido}
+\label{round1-nibbles-change-inverted}
+\begin{tabular}{|l|}
+\hline
+$s_{0,0}$  \\ \hline
+0110 (0x6)       \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{0,0}$  \\ \hline
+1000 (0x8)      \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{1,0}$  \\ \hline
+1110 (0xE)       \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{1,0}$  \\ \hline
+1101 (0xD)      \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{0,1}$  \\ \hline
+0000 (0x0)       \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{0,1}$  \\ \hline
+1010 (0xA)      \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{1,1}$  \\ \hline
+0010 (0x2)       \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{1,1}$  \\ \hline
+1001 (0x9)      \\ \hline
+\end{tabular}
+
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+
+\subsubsubsection{\textbf{Incluir chave da rodada}}
+\label{subsubsub:include-key-round1-dec}
+
+\begin{table}[H]
+\centering
+\caption{Inclusão da chave}
+\label{table-key_include-round1-dec}
+\begin{tabular}{|l|l|}
+\hline
+1000 (0x8) & 1010 (0xA)\\ \hline
+1101 (0xD) & 1001 (0x9)\\ \hline
+\end{tabular}
+$\oplus$
+\begin{tabular}{|l|l|}
+\hline
+0001 (0x1) & 0100 (0x4) \\ \hline
+1110 (0xE) & 1000 (0x8) \\ \hline
+\end{tabular}
+$=$
+\begin{tabular}{|l|l|}
+\hline
+1001 (0x9) & 1110 (0xE) \\ \hline
+0011 (0x3) & 0001 (0x1) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Misturar colunas invertidas}}
+\label{subsubsub:misturar-coluna-round1-dec}
+
+\begin{align*}
+\mathbf{S'_{0,0}} &= (9 \cdot S_{0,0}) \oplus (2 \cdot S_{1,0})\\
+                  &= ((x^3 + 1) \cdot (x^3 + 1)) \mod (x^4 + x + 1) \oplus (x \cdot (x+1)) \\ 
+                  &= ((x^6 + 2x^3 + 1) \mod (x^4 + x + 1)) \oplus (x^2+x) \\
+                  &= (x^3 - x^2 + 1) \oplus (x^2+x) \\
+                  &= 1101 \oplus 0110 \\
+                  &= 1011 \\\\
+\mathbf{S'_{1,0}} &= (2 \cdot S_{0,0}) \oplus (9 \cdot S_{1,0})\\
+                  &= (x \cdot (x^3 + 1)) \oplus ((x^3 + 1) \cdot (x+1)) \\
+                  &= (x^4 + x) \mod (x^4 + x + 1) \oplus (x^4+x^3+x+1) \mod (x^4 + x + 1) \\
+                  &= -1 \oplus x^3 \\
+                  &= 0001 \oplus 1000 \\
+                  &= 1001 \\\\
+\mathbf{S'_{0,1}} &= (9 \cdot S_{0,1}) \oplus (2 \cdot S_{1,1})\\
+                  &= ((x^3 + 1) \cdot (x^3+x^2+x) \mod (x^4 + x + 1)) \oplus x \cdot 1 \\
+                  &= (x^6 + x^5 + x^4 + x^3 + x^2 + x) \mod (x^4 + x + 1) \oplus x \\
+                  &= -x^2-x-1 \oplus x \\
+                  &= 0111 \oplus 0010 \\
+                  &= 0101 \\\\
+\mathbf{S'_{1,1}} &= (2 \cdot S_{0,1}) \oplus (9 \cdot S_{1,1})\\
+                  &= (x \cdot (x^3+x^2+x)) \mod (x^4+x+1) \oplus (x^3 + 1) \cdot 1 \\
+                  &= (x^4+x^3+x^2) \mod (x^4+x+1) \oplus (x^3 + 1) \\
+                  &= (x^3+x^2+x+1) \oplus (x^3+1) \\
+                  &= 1111 \oplus 1001 \\
+                  &= 0110
+\end{align*}
+
+\begin{table}[H]
+\centering
+\caption{Saída: Mistura de colunas invertidas}
+\label{tabela-mistura-coluna-invertida}
+\begin{tabular}{|l|l|}
+\hline
+1011 (0xB) & 0101 (0x5) \\ \hline
+1001 (0x9) & 0110 (0x6) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsection{\textbf{Rodada 2}}
+\label{subsub:rodada2-dec}
+
+\subsubsubsection{\textbf{Deslocar linhas invertidas}}
+\label{subsubsub:deslocar-linha-round2-dec}
+
+\begin{table}[H]
+\centering
+\caption{Deslocamento de linha invertida}
+\label{tabela-desloc-linha-round2-dec}
+\begin{tabular}{|l|l|}
+\hline
+1011 (0xB) & 0101 (0x5) \\ \hline
+1001 (0x9) & 0110 (0x6) \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|l|}
+\hline
+1011 (0xB) & 0101 (0x5) \\ \hline
+0110 (0x6) & 1001 (0x9) \\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Substituição de nibble invertido}}
+\label{subsubsub:substituicao-nibble-round2-dec}
+
+\begin{table}[H]
+\centering
+\caption{Substituição de nibble invertido}
+\label{round2-nibbles-change-inverted}
+\begin{tabular}{|l|}
+\hline
+$s_{0,0}$  \\ \hline
+1011 (0xB)       \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{0,0}$  \\ \hline
+0011 (0x3) \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{1,0}$  \\ \hline
+0110 (0x6)       \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{1,0}$  \\ \hline
+1000 (0x8)      \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{0,1}$  \\ \hline
+0101 (0x5)       \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{0,1}$  \\ \hline
+0111 (0x7)      \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|}
+\hline
+$s_{1,1}$  \\ \hline
+1001 (0x9)       \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+S  \\ \hline
+\end{tabular}
+$\longrightarrow$
+\begin{tabular}{|l|}
+\hline
+$s_{1,1}$  \\ \hline
+0000 (0x0)      \\ \hline
+\end{tabular}
+
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Incluir chave da rodada}}
+\label{subsubsub:include-key-round2-dec}
+
+\begin{table}[H]
+\centering
+\caption{Inclusão da chave}
+\label{table-key_include-round2-dec}
+\begin{tabular}{|l|l|}
+\hline
+0011 (0x3) & 0111 (0x7) \\ \hline
+1000 (0x8) & 0000 (0x0) \\ \hline
+\end{tabular}
+$\oplus$
+\begin{tabular}{|l|l|}
+\hline
+0001 (0x1) & 0101 (0x5) \\ \hline
+1111 (0xF) & 0110 (0x6) \\ \hline
+\end{tabular}
+$=$
+\begin{tabular}{|l|l|}
+\hline
+0010 (0x2) & 0010 (0x2)\\ \hline
+0111 (0x7) & 0110 (0x6)\\ \hline
+\end{tabular}
+\caption*{Bits (Hexadecimal)}
+\end{table}
+
+\subsubsubsection{\textbf{Saída: Texto Decifrado}}
+\label{subsubsub:texto-decifrado-s-aes}
+\indent\textbf{Binário}: 0010 0111 0010 0110 \\
+\indent\textbf{Hexadecimal}: 0x2726 \\
+\indent\textbf{Decimal}: 10022
+
+\section{\textbf{AES}}
+
+Para a simulação do AES 128bits foi utilizada como base a planilha disponibilizada por \cite{aes_excel}.
+
+\begin{table}[H]
+\centering
+\caption{Dados de entrada}
+\label{table-input-data}
+\begin{tabular}{|c|c|}
+\hline
+\cellcolor[HTML]{C0C0C0}\textbf{Texto Claro}   & \texttt{0x00000000000000000000000000002726}  \\ \hline
+\cellcolor[HTML]{C0C0C0}\textbf{Chave}         & \texttt{0x00000000000000000000000000001F56}  \\ \hline
+\cellcolor[HTML]{C0C0C0}\textbf{Texto Cifrado} & \texttt{0x26BC0CCCE44C0066DE46EF3C44EBC555}  \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{\textbf{Encriptação}}
+
+\begin{table}[H]
+\centering
+\caption{Execução AES(18bits) - Encriptação}
+\label{ecription-aes-table}
+\resizebox{13cm}{!}{
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}l |llll|llll|llll|llll|llll|}
+\hline  
+\multicolumn{1}{|l|}{\cellcolor[HTML]{C0C0C0}\textbf{Rodadas}} & \multicolumn{4}{l|}{\cellcolor[HTML]{C0C0C0}\textbf{Início da Rodada}} & \multicolumn{4}{l|}{\cellcolor[HTML]{C0C0C0}\textbf{Após SubBytes}} & \multicolumn{4}{l|}{\cellcolor[HTML]{C0C0C0}\textbf{Após ShiftRows}} & \multicolumn{4}{l|}{\cellcolor[HTML]{C0C0C0}\textbf{Após MixColumns}} & \multicolumn{4}{l|}{\cellcolor[HTML]{C0C0C0}\textbf{Chave de Rodada}} \\ \hline
+\textbf{Rodada 0}                                                    & 00             & 00             & 00             & 00             &               &              &              &              &               &               &              &              &               &               &               &              & 00             & 00             & 00             & 00            \\
+                                                     & 00             & 00             & 00             & 00             &               &              &              &              &               &               &              &              &               &               &               &              & 00             & 00             & 00             & 00            \\
+                                                     & 00             & 00             & 00             & 27            &               &              &              &              &               &               &              &              &               &               &               &              & 00             & 00             & 00             & 1F           \\
+                                                     & 00             & 00             & 00             & 26            &               &              &              &              &               &               &              &              &               &               &               &              & 00             & 00             & 00             & 56           \\ \hline
+\textbf{Rodada 1}                                                    & 00             & 00             & 00             & 00             & 63            & 63           & 63           & 63           & 63            & 63            & 63           & 63           & 51            & 07             & 63            & 63           & 62            & 62            & 62            & 62           \\
+                                                     & 00             & 00             & 00             & 00             & 63            & 63           & 63           & 63           & 63            & 63            & 63           & 63           & 51            & CF            & 63            & 63           & C0            & C0            & C0            & C0           \\
+                                                     & 00             & 00             & 00             & 38            & 63            & 63           & 63           & 07            & 63            & 07             & 63           & 63           & 35            & AB            & 63            & 63           & B1            & B1            & B1            & AE           \\
+                                                     & 00             & 00             & 00             & 70            & 63            & 63           & 63           & 51           & 51            & 63            & 63           & 63           & 07             & 07             & 63            & 63           & 63            & 63            & 63            & 35           \\ \hline
+\textbf{Rodada 2}                                                    & 33            & 65            & 01             & 01             & C3            & 4D           & 7C           & 7C           & C3            & 4D            & 7C           & 7C           & 03             & 7A            & FA            & A1           & DA            & B8            & DA            & B8           \\
+                                                     & 91            & 0F            & A3            & A3            & 81            & 76           & 0A           & 0A           & 76            & 0A            & 0A           & 81           & 5A            & C6            & CA            & FB           & 24            & E4            & 24            & E4           \\
+                                                     & 84            & 1A            & D2            & CD            & 5F            & A2           & B5           & BD           & B5            & BD            & 5F           & A2           & 0C            & E3            & 0D            & 07            & 27            & 96            & 27            & 89           \\
+                                                     & 64            & 64            & 00             & 56            & 43            & 43           & 63           & B1           & B1            & 43            & 43           & 63           & E4            & E6            & 57            & 61           & C9            & AA            & C9            & FC           \\ \hline
+\textbf{Rodada 3}                                                    & D9            & C2            & 20            & 19            & 35            & 25           & B7           & D4           & 35            & 25            & B7           & D4           & 7F            & F3            & F6            & 2B           & B7            & 0F            & D5            & 6D           \\
+                                                     & 7E            & 22            & EE            & 1F            & F3            & 93           & 28           & C0           & 93            & 28            & C0           & F3           & 62            & 86            & 0D            & 9E           & 83            & 67            & 43            & A7           \\
+                                                     & 2B            & 75            & 2A            & 8E            & F1            & 9D           & E5           & 19           & E5            & 19            & F1           & 9D           & 95            & 4C            & F5            & 1B           & 97            & 01             & 26            & AF           \\
+                                                     & 2D            & 4C            & 9E            & 9D            & D8            & 29           & 0B           & 5E           & 5E            & D8            & 29           & 0B           & 95            & F5            & A1            & 1F           & A5            & 0F            & C6            & 3A           \\ \hline
+\textbf{Rodada 4}                                                    & C8            & FC            & 23            & 46            & E8            & B0           & 26           & 5A           & E8            & B0            & 26           & 5A           & 81            & 83            & 20            & C1           & E3            & EC            & 39            & 54           \\
+                                                     & E1            & E1            & 4E            & 39            & F8            & F8           & 2F           & 12           & F8            & 2F            & 12           & F8           & 96            & 66            & B6            & 0A           & FA            & 9D            & DE            & 79           \\
+                                                     & 02             & 4D            & D3            & B4            & 77            & E3           & 66           & 8D           & 66            & 8D            & 77           & E3           & 9D            & 92            & AD            & EB           & 17            & 16            & 30            & 9F           \\
+                                                     & 30            & FA            & 67            & 25            & 04             & 2D           & 85           & 3F           & 3F            & 04             & 2D           & 85           & C3            & 61            & 55            & E4           & 99            & 96            & 50            & 6A           \\ \hline
+\textbf{Rodada 5}                                                    & 62            & 6F            & 19            & 95            & AA            & A8           & D4           & 2A           & AA            & A8            & D4           & 2A           & 19            & A8            & 2F            & 90           & 45            & A9            & 90            & C4           \\
+                                                     & 6C            & FB            & 68            & 73            & 50            & 0F           & 45           & 8F           & 0F            & 45            & 8F           & 50           & 4F            & 31            & 3B            & 00            & 21            & BC            & 62            & 1B           \\
+                                                     & 8A            & 84            & 9D            & 74            & 7E            & 5F           & 5E           & 92           & 5E            & 92            & 7E           & 5F           & 32            & 0B            & 1F            & 79           & 15            & 03             & 33            & AC           \\
+                                                     & 5A            & F7            & 05             & 8E            & BE            & 68           & 6B           & 19           & 19            & BE            & 68           & 6B           & 86            & 53            & 46            & A7           & B9            & 2F            & 7F            & 15           \\ \hline
+\textbf{Rodada 6}                                                    & 5C            & 01             & BF            & 54            & 4A            & 7C           & 08            & 20           & 4A            & 7C            & 08            & 20           & 35            & C8            & 26            & D8           & CA            & 63            & F3            & 37           \\
+                                                     & 6E            & 8D            & 59            & 1B            & 9F            & 5D           & CB           & AF           & 5D            & CB            & AF           & 9F           & 54            & 81            & 12            & 47           & B0            & 0C            & 6E            & 75           \\
+                                                     & 27            & 08             & 2C            & D5            & CC            & 30           & 71           & 03            & 71            & 03             & CC           & 30           & AC            & 2E            & 14            & E9           & 4C            & 4F            & 7C            & D0           \\
+                                                     & 3F            & 7C            & 39            & B2            & 75            & 10           & 12           & 37           & 37            & 75            & 10           & 12           & 9C            & A6            & 5B            & EB           & A5            & 8A            & F5            & E0           \\ \hline
+\textbf{Rodada 7}                                                    & FF            & AB            & D5            & EF            & 16            & 62           & 03            & DF           & 16            & 62            & 03            & DF           & A5            & F4            & F3            & 15           & 17            & 74            & 87            & B0           \\
+                                                     & E4            & 8D            & 7C            & 32            & 69            & 5D           & 10           & 23           & 5D            & 10            & 23           & 69           & 48            & 66            & 0C            & C3           & C0            & CC            & A2            & D7           \\
+                                                     & E0            & 61            & 68            & 39            & E1            & EF           & 45           & 12           & 45            & 12            & E1           & EF           & BC            & 60            & 6A            & 44           & AD            & E2            & 9E            & 4E           \\
+                                                     & 39            & 2C            & AE            & 0B            & 12            & 71           & E4           & 2B           & 2B            & 12            & 71           & E4           & 74            & 80            & 25            & 2F           & 3F            & B5            & 40            & A0           \\ \hline
+\textbf{Rodada 8}                                                   & B2            & 80            & 74            & A5            & 37            & CD           & 92           & 06            & 37            & CD            & 92           & 06            & 4D            & 62            & 3E            & 05            & 99            & ED            & 6A            & DA           \\
+                                                     & 88            & AA            & AE            & 14            & C4            & AC           & E4           & FA           & AC            & E4            & FA           & C4           & DD            & 04             & 76            & ED           & EF            & 23            & 81            & 56           \\
+                                                     & 11            & 82            & F4            & 0A            & 82            & 13           & BF           & 67           & BF            & 67            & 82           & 13           & 6B            & 29            & D6            & 33           & 4D            & AF            & 31            & 7F           \\
+                                                     & 4B            & 35            & 65            & 8F            & B3            & 96           & 4D           & 73           & 73            & B3            & 96           & 4D           & AC            & B2            & E2            & 47           & D8            & 6D            & 2D            & 8D           \\ \hline
+\textbf{Rodada 9}                                                    & D4            & 8F            & 54            & DF            & 48            & 73           & 20           & 9E           & 48            & 73            & 20           & 9E           & 3F            & E5            & 0C            & 8C           & 33            & DE            & B4            & 6E           \\
+                                                     & 32            & 27            & F7            & BB            & 23            & CC           & 68           & EA           & CC            & 68            & EA           & 23           & 18            & 4A            & 73            & 9E           & 3D            & 1E            & 9F            & C9           \\
+                                                     & 26            & 86            & E7            & 4C            & F7            & 44           & 94           & 29           & 94            & 29            & F7           & 44           & 2B            & E4            & 86            & B0           & 10            & BF            & 8E            & F1           \\
+                                                     & 74            & DF            & CF            & CA            & 92            & 9E           & 8A           & 74           & 74            & 92            & 9E           & 8A           & 68            & EB            & 5A            & D1           & 8F            & E2            & CF            & 42           \\ \hline
+\textbf{Rodada 10}                                                   & 0C            & 3B            & B8            & E2            & FE            & E2           & 6C           & 98           & FE            & E2            & 6C           & 98           &               &               &               &              & D8            & 06             & B2            & DC           \\
+                                                     & 25            & 54            & EC            & 57            & 3F            & 20           & CE           & 5B           & 20            & CE            & 5B           & 3F           &               &               &               &              & 9C            & 82            & 1D            & D4           \\
+                                                     & 3B            & 5B            & 08             & 41            & E2            & 39           & 30           & 83           & 30            & 83            & E2           & 39           &               &               &               &              & 3C            & 83            & 0D            & FC           \\
+                                                     & E7            & 09             & 95            & 93            & 94            & 01            & 2A           & DC           & DC            & 94            & 01            & 2A           &               &               &               &              & 10            & F2            & 3D            & 7F           \\ \hline
+\textbf{Saída}                                                & 26            & E4            & DE            & 44            &               &              &              &              &               &               &              &              &               &               &               &              &               &               &               &              \\
+                                                     & BC            & 4C            & 46            & EB            &               &              &              &              &               &               &              &              &               &               &               &              &               &               &               &              \\
+                                                     & 0C            & 00             & EF            & C5            &               &              &              &              &               &               &              &              &               &               &               &              &               &               &               &              \\
+                                                     & CC            & 66            & 3C            & 55            &               &              &              &              &               &               &              &              &               &               &               &              &               &               &               &             \\\hline
+\end{tabular}
+}
+\end{table}
+
+\subsection{\textbf{Decriptação}}
+
+\begin{table}[H]
+\centering
+\caption{Execução AES(18bits) - Decriptação}
+\label{ecription-aes-table}
+\resizebox{13cm}{!}{
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}l |llll|llll|llll|llll|llll|}
+\hline  
+\textbf{Rodadas}   & \multicolumn{4}{c|}{\cellcolor[HTML]{C0C0C0}\textbf{Final da rodada}} & \multicolumn{4}{c|}{\cellcolor[HTML]{C0C0C0}\textbf{ShiftRows}} & \multicolumn{4}{c|}{\cellcolor[HTML]{C0C0C0}\textbf{SubBytes}} & \multicolumn{4}{c|}{\cellcolor[HTML]{C0C0C0}\textbf{Key Schedule}} & \multicolumn{4}{c|}{\cellcolor[HTML]{C0C0C0}\textbf{MixColumns}} \\ \hline
+\textbf{Saída}     & 00              & 00              & 00              & 00              &                &                &               &               &                &               &               &               &                 &                &                &                &                &                &                &               \\
+\textbf{}          & 00              & 00              & 00              & 00              &                &                &               &               &                &               &               &               &                 &                &                &                &                &                &                &               \\
+\textbf{}          & 00              & 00              & 00              & 27              &                &                &               &               &                &               &               &               &                 &                &                &                &                &                &                &               \\
+\textbf{}          & 00              & 00              & 00              & 26              &                &                &               &               &                &               &               &               &                 &                &                &                &                &                &                &               \\ \hline
+\textbf{Rodada 10} & 51              & 07              & 63              & 63              & 63             & 63             & 63            & 63            & 00             & 00            & 00            & 00            & 00              & 00             & 00             & 00             & 63             & 63             & 63             & 63            \\
+\textbf{}          & 51              & CF              & 63              & 63              & 63             & 63             & 63            & 63            & 00             & 00            & 00            & 00            & 00              & 00             & 00             & 00             & 63             & 63             & 63             & 63            \\
+\textbf{}          & 35              & AB              & 63              & 63              & 63             & 63             & 63            & 07            & 00             & 00            & 00            & 38            & 00              & 00             & 00             & 1F             & 63             & 07             & 63             & 63            \\
+\textbf{}          & 07              & 07              & 63              & 63              & 63             & 63             & 63            & 51            & 00             & 00            & 00            & 70            & 00              & 00             & 00             & 56             & 51             & 63             & 63             & 63            \\ \hline
+\textbf{Rodada 9}  & 03              & 7A              & FA              & A1              & C3             & 4D             & 7C            & 7C            & 33             & 65            & 01            & 01            & 62              & 62             & 62             & 62             & C3             & 4D             & 7C             & 7C            \\
+\textbf{}          & 5A              & C6              & CA              & FB              & 81             & 76             & 0A            & 0A            & 91             & 0F            & A3            & A3            & C0              & C0             & C0             & C0             & 76             & 0A             & 0A             & 81            \\
+\textbf{}          & 0C              & E3              & 0D              & 07              & 5F             & A2             & B5            & BD            & 84             & 1A            & D2            & CD            & B1              & B1             & B1             & AE             & B5             & BD             & 5F             & A2            \\
+\textbf{}          & E4              & E6              & 57              & 61              & 43             & 43             & 63            & B1            & 64             & 64            & 00            & 56            & 63              & 63             & 63             & 35             & B1             & 43             & 43             & 63            \\ \hline
+\textbf{Rodada 8}  & 7F              & F3              & F6              & 2B              & 35             & 25             & B7            & D4            & D9             & C2            & 20            & 19            & DA              & B8             & DA             & B8             & 35             & 25             & B7             & D4            \\
+\textbf{}          & 62              & 86              & 0D              & 9E              & F3             & 93             & 28            & C0            & 7E             & 22            & EE            & 1F            & 24              & E4             & 24             & E4             & 93             & 28             & C0             & F3            \\
+\textbf{}          & 95              & 4C              & F5              & 1B              & F1             & 9D             & E5            & 19            & 2B             & 75            & 2A            & 8E            & 27              & 96             & 27             & 89             & E5             & 19             & F1             & 9D            \\
+\textbf{}          & 95              & F5              & A1              & 1F              & D8             & 29             & 0B            & 5E            & 2D             & 4C            & 9E            & 9D            & C9              & AA             & C9             & FC             & 5E             & D8             & 29             & 0B            \\ \hline
+\textbf{Rodada 7}  & 81              & 83              & 20              & C1              & E8             & B0             & 26            & 5A            & C8             & FC            & 23            & 46            & B7              & 0F             & D5             & 6D             & E8             & B0             & 26             & 5A            \\
+\textbf{}          & 96              & 66              & B6              & 0A              & F8             & F8             & 2F            & 12            & E1             & E1            & 4E            & 39            & 83              & 67             & 43             & A7             & F8             & 2F             & 12             & F8            \\
+\textbf{}          & 9D              & 92              & AD              & EB              & 77             & E3             & 66            & 8D            & 02             & 4D            & D3            & B4            & 97              & 01             & 26             & AF             & 66             & 8D             & 77             & E3            \\
+\textbf{}          & C3              & 61              & 55              & E4              & 04             & 2D             & 85            & 3F            & 30             & FA            & 67            & 25            & A5              & 0F             & C6             & 3A             & 3F             & 04             & 2D             & 85            \\ \hline
+\textbf{Rodada 6}  & 19              & A8              & 2F              & 90              & AA             & A8             & D4            & 2A            & 62             & 6F            & 19            & 95            & E3              & EC             & 39             & 54             & AA             & A8             & D4             & 2A            \\
+\textbf{}          & 4F              & 31              & 3B              & 00              & 50             & 0F             & 45            & 8F            & 6C             & FB            & 68            & 73            & FA              & 9D             & DE             & 79             & 0F             & 45             & 8F             & 50            \\
+\textbf{}          & 32              & 0B              & 1F              & 79              & 7E             & 5F             & 5E            & 92            & 8A             & 84            & 9D            & 74            & 17              & 16             & 30             & 9F             & 5E             & 92             & 7E             & 5F            \\
+\textbf{}          & 86              & 53              & 46              & A7              & BE             & 68             & 6B            & 19            & 5A             & F7            & 05            & 8E            & 99              & 96             & 50             & 6A             & 19             & BE             & 68             & 6B            \\ \hline
+\textbf{Rodada 5}  & 35              & C8              & 26              & D8              & 4A             & 7C             & 08            & 20            & 5C             & 01            & BF            & 54            & 45              & A9             & 90             & C4             & 4A             & 7C             & 08             & 20            \\
+\textbf{}          & 54              & 81              & 12              & 47              & 9F             & 5D             & CB            & AF            & 6E             & 8D            & 59            & 1B            & 21              & BC             & 62             & 1B             & 5D             & CB             & AF             & 9F            \\
+\textbf{}          & AC              & 2E              & 14              & E9              & CC             & 30             & 71            & 03            & 27             & 08            & 2C            & D5            & 15              & 03             & 33             & AC             & 71             & 03             & CC             & 30            \\
+\textbf{}          & 9C              & A6              & 5B              & EB              & 75             & 10             & 12            & 37            & 3F             & 7C            & 39            & B2            & B9              & 2F             & 7F             & 15             & 37             & 75             & 10             & 12            \\ \hline
+\textbf{Rodada 4}  & A5              & F4              & F3              & 15              & 16             & 62             & 03            & DF            & FF             & AB            & D5            & EF            & CA              & 63             & F3             & 37             & 16             & 62             & 03             & DF            \\
+\textbf{}          & 48              & 66              & 0C              & C3              & 69             & 5D             & 10            & 23            & E4             & 8D            & 7C            & 32            & B0              & 0C             & 6E             & 75             & 5D             & 10             & 23             & 69            \\
+\textbf{}          & BC              & 60              & 6A              & 44              & E1             & EF             & 45            & 12            & E0             & 61            & 68            & 39            & 4C              & 4F             & 7C             & D0             & 45             & 12             & E1             & EF            \\
+\textbf{}          & 74              & 80              & 25              & 2F              & 12             & 71             & E4            & 2B            & 39             & 2C            & AE            & 0B            & A5              & 8A             & F5             & E0             & 2B             & 12             & 71             & E4            \\ \hline
+\textbf{Rodada 3}  & 4D              & 62              & 3E              & 05              & 37             & CD             & 92            & 06            & B2             & 80            & 74            & A5            & 17              & 74             & 87             & B0             & 37             & CD             & 92             & 06            \\
+\textbf{}          & DD              & 04              & 76              & ED              & C4             & AC             & E4            & FA            & 88             & AA            & AE            & 14            & C0              & CC             & A2             & D7             & AC             & E4             & FA             & C4            \\
+\textbf{}          & 6B              & 29              & D6              & 33              & 82             & 13             & BF            & 67            & 11             & 82            & F4            & 0A            & AD              & E2             & 9E             & 4E             & BF             & 67             & 82             & 13            \\
+\textbf{}          & AC              & B2              & E2              & 47              & B3             & 96             & 4D            & 73            & 4B             & 35            & 65            & 8F            & 3F              & B5             & 40             & A0             & 73             & B3             & 96             & 4D            \\ \hline
+\textbf{Rodada 2}  & 3F              & E5              & 0C              & 8C              & 48             & 73             & 20            & 9E            & D4             & 8F            & 54            & DF            & 99              & ED             & 6A             & DA             & 48             & 73             & 20             & 9E            \\
+\textbf{}          & 18              & 4A              & 73              & 9E              & 23             & CC             & 68            & EA            & 32             & 27            & F7            & BB            & EF              & 23             & 81             & 56             & CC             & 68             & EA             & 23            \\
+\textbf{}          & 2B              & E4              & 86              & B0              & F7             & 44             & 94            & 29            & 26             & 86            & E7            & 4C            & 4D              & AF             & 31             & 7F             & 94             & 29             & F7             & 44            \\
+\textbf{}          & 68              & EB              & 5A              & D1              & 92             & 9E             & 8A            & 74            & 74             & DF            & CF            & CA            & D8              & 6D             & 2D             & 8D             & 74             & 92             & 9E             & 8A            \\ \hline
+\textbf{Rodada 1}  & FE              & E2              & 6C              & 98              & FE             & E2             & 6C            & 98            & 0C             & 3B            & B8            & E2            & 33              & DE             & B4             & 6E             &                &                &                &               \\
+\textbf{}          & 20              & CE              & 5B              & 3F              & 3F             & 20             & CE            & 5B            & 25             & 54            & EC            & 57            & 3D              & 1E             & 9F             & C9             &                &                &                &               \\
+\textbf{}          & 30              & 83              & E2              & 39              & E2             & 39             & 30            & 83            & 3B             & 5B            & 08            & 41            & 10              & BF             & 8E             & F1             &                &                &                &               \\
+\textbf{}          & DC              & 94              & 01              & 2A              & 94             & 01             & 2A            & DC            & E7             & 09            & 95            & 93            & 8F              & E2             & CF             & 42             &                &                &                &               \\ \hline
+\textbf{Rodada 0}  & 26              & E4              & DE              & 44              &                &                &               &               &                &               &               &               & D8              & 06             & B2             & DC             &                &                &                &               \\
+\textbf{}          & BC              & 4C              & 46              & EB              &                &                &               &               &                &               &               &               & 9C              & 82             & 1D             & D4             &                &                &                &               \\
+\textbf{}          & 0C              & 00               & EF              & C5              &                &                &               &               &                &               &               &               & 3C              & 83             & 0D             & FC             &                &                &                &               \\
+\textbf{}          & CC              & 66              & 3C              & 55              &                &                &               &               &                &               &               &               & 10              & F2             & 3D             & 7F             &                &                &                &               \\ \hline
+\end{tabular}
+}
+\end{table}
+
+% ---
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+% ---
+\bookmarksetup{startatroot}% 
+% ---
+
+% ---
+% Conclusão
+% ---
+% \section*{Considerações finais}
+% \addcontentsline{toc}{section}{Considerações finais}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\nocite{Stallings:2005:CNS:1076613}
+\nocite{Stallings:2010:CNS:1824151}
+\bibliography{bibliography}
+
+\end{document}

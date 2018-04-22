@@ -1,0 +1,444 @@
+%% abtex2-modelo-artigo.tex, v-1.9.6 laurocesar
+%% Copyright 2012-2016 by abnTeX2 group at http://www.abntex.net.br/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+    % -- opções da classe memoir --
+    article,            % indica que é um artigo acadêmico
+    11pt,               % tamanho da fonte
+    oneside,            % para impressão apenas no recto. Oposto a twoside
+    a4paper,            % tamanho do papel. 
+    % -- opções da classe abntex2 --
+    %chapter=TITLE,     % títulos de capítulos convertidos em letras maiúsculas
+    %section=TITLE,     % títulos de seções convertidos em letras maiúsculas
+    %subsection=TITLE,  % títulos de subseções convertidos em letras maiúsculas
+    %subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
+    % -- opções do pacote babel --
+    english,            % idioma adicional para hifenização
+    brazil,             % o último idioma é o principal do documento
+    sumario=tradicional,
+    ]{abntex2}
+
+
+% ---
+% PACOTES
+% ---
+\usepackage[table,xcdraw]{xcolor}
+
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{lmodern}            % Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}        % Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}     % Codificacao do documento (conversão automática dos acentos)
+% \usepackage{indentfirst}        % Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl}            % Lista de simbolos
+\usepackage{color}              % Controle das cores
+\usepackage{graphicx}           % Inclusão de gráficos
+\usepackage{microtype}          % para melhorias de justificação
+% ---
+        
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}             % para geração de dummy text
+\usepackage{fancyvrb}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage[procnames]{listings}
+\usepackage{color}
+\usepackage{amsmath}
+% ---
+        
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}     % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}   % Citações padrão ABNT
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+    \ifcase #1 %
+        Nenhuma citação no texto.%
+    \or
+        Citado na página #2.%
+    \else
+        Citado #1 vezes nas páginas #2.%
+    \fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Relatório INE5429 - Segurança em Computação\\ 
+        Pseudo-Aleatórios}
+\autor{Bruno Marques do Nascimento\thanks{brunomn95@gmail.com \hspace{1mm} - \hspace{1mm} Universidade Federal de Santa Catarina}}
+\instituicao{Universidade Federal de Santa Catarina}
+\local{Florianópolis - SC, Brasil}
+\data{14 de Abril de 2018}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+        %pagebackref=true,
+        pdftitle={\@title}, 
+        pdfauthor={\@author},
+        pdfsubject={Modelo de artigo científico com abnTeX2},
+        pdfcreator={LaTeX with abnTeX2},
+        pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+        colorlinks=true,            % false: boxed links; true: colored links
+        linkcolor=blue,             % color of internal links
+        citecolor=blue,             % color of links to bibliography
+        filecolor=magenta,              % color of file links
+        urlcolor=blue,
+        bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[           % INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
+
+\maketitle
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+% \section*{Introdução}
+% \addcontentsline{toc}{section}{Introdução}
+
+\section*{\textbf{Algoritmos:}}
+\addcontentsline{toc}{section}{Questões e respostas:}
+
+% ----------------------------------------------------------
+% Questão 1
+% ----------------------------------------------------------
+\subsection*{\textbf{1 - Blum Blum Shub(BBS):}}
+\addcontentsline{toc}{subsection}{1 - Blum Blum Shub}
+
+O Blum Blum Shub é um algoritmo que se baseia na seguinte fórmula: $x_i = x_{i-1}^2 \mod n$, no qual a saída é a concatenação dos bits de paridade ($z_1,z_2,z_3...$), que valem 0 quando $x_i$ é par e 1 quando $x_i$ é ímpar. Para este algoritmo são necessário dois números primos grandes ($p$ e $q$) ambos congruentes a $3\pmod4$, também uma semente aleatória $s$ $\in$ $[1,1-n]$, e $x_0 = s^2\mod n$, onde $n = p * q$.
+
+\begin{table}[H]
+\centering
+\caption{Blum Blum Shub}
+\label{bbs-table}
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+\textbf{Tamanho do Número} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo para gerar\\ (microssegundos)\end{tabular}} \\ \hline
+40                         & 29.80                                                                                \\ \hline
+56                         & 60.08                                                                                \\ \hline
+80                         & 75.82                                                                                \\ \hline
+128                        & 87.02                                                                                \\ \hline
+168                        & 153.54                                                                               \\ \hline
+224                        & 230.79                                                                               \\ \hline
+256                        & 183.11                                                                               \\ \hline
+512                        & 387.19                                                                               \\ \hline
+1024                       & 875.95                                                                               \\ \hline
+2048                       & 1487.02                                                                              \\ \hline
+4096                       & 3154.28                                                                              \\ \hline
+\end{tabular}
+\end{table}
+
+
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{0,0,113}
+\definecolor{red}{RGB}{160,0,0}
+\definecolor{green}{RGB}{0,150,0}
+\lstset{language=Python, 
+        basicstyle=\ttfamily\small, 
+        keywordstyle=\color{keywords},
+        commentstyle=\color{comments},
+        stringstyle=\color{red},
+        showstringspaces=false,
+        identifierstyle=\color{green},
+        procnamekeys={def,class},
+        inputencoding=utf8,
+        literate={á}{{\'a}}1 {ó}{{\'o}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ú}{{\'u}}1
+             {ã}{{\~a}}1 {õ}{{\~o}}1
+             {ç}{{\c{c}}}1,
+}
+
+\begin{lstlisting}[frame=single, title={blum-blum-shub.py}]
+import sys
+import time as t
+MICRO = 1000*1000
+
+p = 3141592653589771  # Número primo p congruente a 3 (mod 4).
+q = 2718281828459051  # Número primo q congruente a 3 (mod 4).
+seed = 2              # Semente aleatória entre [1, n-1].
+random = 0            # Número aleatório que será gerado.
+x = []                # Array dos valores de x.
+
+n = p * q
+
+bits = int(sys.argv[1]) + 1
+
+start = t.time() # Tempo de início da execução.
+
+x.append(seed*seed % n) # x[0] := seed^2 mod n.
+
+for i in range(1, bits):
+    # xi:= x[i-1]^2 mod n
+    x.append( ( x[i-1]*x[i-1] ) % n)
+
+    # Extração do bit de paridade fazendo um AND
+    # lógico e concatenação com o resultado de saída
+    # após fazer um deslocamento a esquerda.
+    random = (random << 1) | (x[i] & 1)
+
+end = t.time()  # Tempo de término da execução.
+total_time = (end - start) * MICRO
+
+print("Random value = " + str(random))
+print("%.2f" %total_time + " microssegundos")
+\end{lstlisting}
+
+% ----------------------------------------------------------
+% Questão 2
+% ----------------------------------------------------------
+\subsection*{\textbf{2 - Linear congruential generator (LCG):}}
+\addcontentsline{toc}{subsection}{2 - Linear congruential generator}
+
+Este gerador é definido por $x_{n} = (aX_{n-1} + c)\mod m$, com $X$ sendo a sequência de valores pseudo-aleatórios, $m$ é o módulo e $m > 0$, $a$ é multiplicador e $0 < a < m$, $c$ o incremento $0\leq c<m$ e $X_0$ é a semente inicial $0 \leq X_0 < m$, $m$ e $c$ precisam ser relativamente primos.
+
+\begin{table}[H]
+\centering
+\caption{LCG}
+\label{lcg-table}
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+\textbf{Tamanho do Número} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo para gerar\\ (microssegundos)\end{tabular}} \\ \hline
+40                         & 37.43                                                                                \\ \hline
+56                         & 36.48                                                                                \\ \hline
+80                         & 48.88                                                                                \\ \hline
+128                        & 103.00                                                                               \\ \hline
+168                        & 136.14                                                                               \\ \hline
+224                        & 168.09                                                                               \\ \hline
+256                        & 175.00                                                                               \\ \hline
+512                        & 290.16                                                                               \\ \hline
+1024                       & 640.15                                                                               \\ \hline
+2048                       & 1334.19                                                                              \\ \hline
+4096                       & 2638.82                                                                              \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{lstlisting}[frame=single, title={lcg.py}]
+import sys
+import time as t
+MICRO = 1000*1000
+
+m = 3141592653589771 # Módulo m
+c = 2718281828459051 # Incremento c
+a = 2718281828459051 # Multiplicaor a
+seed = 2             # Semente X0
+random = 0            
+x = []                
+
+bits = int(sys.argv[1]) + 1
+
+start = t.time() # Tempo de início da execução.
+
+x.append(seed) # x[0] := seed.
+
+for i in range(1, bits):
+    # x[n] = (a * X[n-1] + c) mod m
+    x.append( ( a * x[i-1] + c ) % m)
+    random = (random << 1) | (x[i] & 1)
+    
+end = t.time()  # Tempo de término da execução.
+total_time = (end - start) * MICRO
+
+print("Random value = " + str(random))
+print("%.2f" %total_time + " microssegundos")
+
+\end{lstlisting}
+
+% ----------------------------------------------------------
+% Questão 2
+% ----------------------------------------------------------
+\subsection*{\textbf{3 - Park–Miller random number generator (PM):}}
+\addcontentsline{toc}{subsection}{3 - Park–Miller random number generator}
+
+Este gerador é um tipo de LGC e é definido por $X_{i} = g * X_{k-1}\mod n$, onde o módulo $n$ é primo, o multiplicador $g$ é a raíz primitiva de $n$ e a semente $X_0$ é coprima de $n$.
+
+\begin{table}[H]
+\centering
+\caption{Park-Miller}
+\label{pm-table}
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+\textbf{Tamanho do Número} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo para gerar\\ (microssegundos)\end{tabular}} \\ \hline
+40                         & 35.29                                                                                \\ \hline
+56                         & 33.62                                                                                \\ \hline
+80                         & 45.30                                                                                \\ \hline
+128                        & 69.62                                                                                \\ \hline
+168                        & 96.08                                                                                \\ \hline
+224                        & 122.55                                                                               \\ \hline
+256                        & 200.75                                                                               \\ \hline
+512                        & 427.48                                                                               \\ \hline
+1024                       & 560.76                                                                               \\ \hline
+2048                       & 1165.63                                                                              \\ \hline
+4096                       & 2506.97                                                                              \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{lstlisting}[frame=single, title={pm.py}]
+import sys
+import time as t
+MICRO = 1000*1000
+
+n = 3141592653589771 # Módulo n
+g = 2718281828459051 # Multiplicador g
+seed = 2             # Semente X0
+random = 0            
+x = []                
+
+bits = int(sys.argv[1]) + 1
+
+start = t.time() # Tempo de início da execução.
+
+x.append(seed) # x[0] := seed.
+
+for i in range(1, bits):
+    # X[i] = g * X[k-1] % mod n
+    x.append( (g * x[i-1]) % n)
+    random = (random << 1) | (x[i] & 1)
+
+end = t.time()  # Tempo de término da execução.
+total_time = (end - start) * MICRO
+
+print("Random value = " + str(random))
+print("%.2f" %total_time + " microssegundos")
+\end{lstlisting}
+
+
+\section*{\textbf{Respostas}}
+\addcontentsline{toc}{subsection}{Conclusão}
+
+Os algoritmos elaborados utilizam uma estrutura muito parecidade, alterando apenas a função \textit{kernel} deles, ou seja sua estrutura é muito similar mudando apenas os cálculos computacionais realizados. Quanto aos testes, existem vários deles, muitos são baterias de testes que visam realizar a verificação da aleatoriedade dos números gerados, utilizando padrões estatísticos. As mais conhecidas destas baterias são o TestU01 e o Diehard.
+
+
+% ---
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+% ---
+\bookmarksetup{startatroot}% 
+% ---
+
+% ---
+% Conclusão
+% ---
+% \section*{Considerações finais}
+% \addcontentsline{toc}{section}{Considerações finais}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\nocite{bbs_random}
+\nocite{lgc_random}
+\nocite{pm_random}
+\bibliography{bibliography}
+
+\end{document}
