@@ -394,7 +394,56 @@ Ambos algoritmos implementados são muito parecidos, são testes de primalidade 
 Devido a complexidade dos algoritmos, o tempo total para gerar um número e realizar o teste de primalidade sobre ele torna-se demorado quando o número de \textit{bits} começa a aumentar, podendo tomar mais de 30 minutos, por exemplo, ao tentar gerar um número primo de 4096 \textit{bits}. Outro fato relevante, é que este tempo é dependente da ``sorte'' de gerar um numero aleatório que seja primo para que o teste convirja rapidamente, acarretando em um elevado desvio padrão.
 
 
-\newpage
+\section{\textbf{Execuções}}
+
+\begin{table}[H]
+\centering
+\caption{Execuções Miller-Rabin}
+\label{mr-execc-table}
+\resizebox*{\textwidth}{!}{
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}l |l|l|l|l|l|l|
+>{\columncolor[HTML]{DAE8FC}}l |l|}
+\hline
+BITS\textbackslash{}EXECUÇÃO & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}2 & \cellcolor[HTML]{C0C0C0}3 & \cellcolor[HTML]{C0C0C0}4 & \cellcolor[HTML]{C0C0C0}5 & \cellcolor[HTML]{C0C0C0}6 & \cellcolor[HTML]{C0C0C0}MEDIA & \cellcolor[HTML]{C0C0C0}STD DEV       \\ \hline
+40                           & 2339,84                   & 2743,96                   & 1082,66                   & 4654,65                   & 2534,15                   & 26,46                     & 2437,00                       & \cellcolor[HTML]{ECF4FF}1576,05       \\ \hline
+56                           & 9079,69                   & 643,25                    & 23,84                     & 166,42                    & 4580,97                   & 1823,43                   & 1233,34                       & \cellcolor[HTML]{ECF4FF}3544,45       \\ \hline
+80                           & 19163,61                  & 6067,28                   & 16526,94                  & 2106,43                   & 7554,53                   & 10900,74                  & 9227,64                       & \cellcolor[HTML]{ECF4FF}6484,48       \\ \hline
+128                          & 74996,23                  & 544,31                    & 17953,16                  & 10175,94                  & 2077,1                    & 70564,03                  & 14064,55                      & \cellcolor[HTML]{ECF4FF}34214,85      \\ \hline
+168                          & 50626,75                  & 33541,2                   & 128947,97                 & 18716,81                  & 15667,68                  & 89344,02                  & 42083,98                      & \cellcolor[HTML]{ECF4FF}44683,58      \\ \hline
+224                          & 366577,39                 & 473574,16                 & 343026,88                 & 105931,76                 & 57917,36                  & 112919,81                 & 227973,35                     & \cellcolor[HTML]{ECF4FF}172281,57     \\ \hline
+256                          & 25068,76                  & 187540,53                 & 212288,38                 & 54706,34                  & 68102,36                  & 37176,85                  & 61404,35                      & \cellcolor[HTML]{ECF4FF}81073,24      \\ \hline
+512                          & 296193,36                 & 371868,37                 & 1380643,61                & 4848669,29                & 1838359,83                & 667260,89                 & 1023952,25                    & \cellcolor[HTML]{ECF4FF}1716422,89    \\ \hline
+1024                         & 31207163,33               & 1754965,07                & 4173250,68                & 10158452,99               & 14755793,09               & 54736176,01               & 12457123,04                   & \cellcolor[HTML]{ECF4FF}20190124,49   \\ \hline
+2048                         & 1748714846,37             & 132029213,43              & 107674439,67              & 171298158,41              & 170740248,68              & 340060755,01              & 171019203,55                  & \cellcolor[HTML]{ECF4FF}643825280,23  \\ \hline
+4096                         & 374507446,53              & 1224821036,1              & 865104266,41              & 378419603,59              & 2000634170,77             & 3690580049,04             & 1044962651,26                 & \cellcolor[HTML]{ECF4FF}1266221570,34 \\ \hline
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Execuções Fermat}
+\label{fer-execc-table}
+\resizebox*{\textwidth}{!}{
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}l |l|l|l|l|l|l|
+>{\columncolor[HTML]{DAE8FC}}l |l|}
+\hline
+BITS\textbackslash{}EXECUÇÃO & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}2 & \cellcolor[HTML]{C0C0C0}3 & \cellcolor[HTML]{C0C0C0}4 & \cellcolor[HTML]{C0C0C0}5 & \cellcolor[HTML]{C0C0C0}6 & \cellcolor[HTML]{C0C0C0}MEDIA & \cellcolor[HTML]{C0C0C0}STD DEV       \\ \hline
+40                           & 443,7                     & 375,03                    & 387,43                    & 383,14                    & 664,71                    & 478,03                    & 415,57                        & \cellcolor[HTML]{ECF4FF}110,24        \\ \hline
+56                           & 552,18                    & 579,83                    & 927,45                    & 463,96                    & 511,17                    & 765,32                    & 566,01                        & \cellcolor[HTML]{ECF4FF}177,19        \\ \hline
+80                           & 1654,39                   & 1067,16                   & 869,51                    & 1472,95                   & 990,63                    & 1030,68                   & 1048,92                       & \cellcolor[HTML]{ECF4FF}309,24        \\ \hline
+128                          & 3141,4                    & 3112,79                   & 2456,9                    & 2285,24                   & 5201,34                   & 3047,7                    & 3080,25                       & \cellcolor[HTML]{ECF4FF}1041,94       \\ \hline
+168                          & 7531,4                    & 5510,81                   & 11207,1                   & 4567,86                   & 9233,47                   & 7118,94                   & 7325,17                       & \cellcolor[HTML]{ECF4FF}2426,65       \\ \hline
+224                          & 19263,03                  & 83230,97                  & 11532,31                  & 7150,41                   & 13693,33                  & 28469,09                  & 16478,18                      & \cellcolor[HTML]{ECF4FF}28404,10      \\ \hline
+256                          & 12604                     & 8593,08                   & 29173,37                  & 61172,49                  & 12401,1                   & 10271,55                  & 12502,55                      & \cellcolor[HTML]{ECF4FF}20410,04      \\ \hline
+512                          & 109261,27                 & 142869,95                 & 182988,41                 & 207906,96                 & 96101,76                  & 82098,01                  & 126065,61                     & \cellcolor[HTML]{ECF4FF}50266,13      \\ \hline
+1024                         & 3349493,98                & 2081247,09                & 909789,8                  & 356384,52                 & 1203379,39                & 740375,28                 & 1056584,60                    & \cellcolor[HTML]{ECF4FF}1100742,88    \\ \hline
+2048                         & 26155449,63               & 1641473,53                & 58278342,25               & 12067330,12               & 5318920,37                & 68050973,89               & 19111389,88                   & \cellcolor[HTML]{ECF4FF}28232101,87   \\ \hline
+4096                         & 208888615,61              & 302012347,7               & 35766744,14               & 10214559,56               & 184635787,96              & 259303761,01              & 196762201,79                  & \cellcolor[HTML]{ECF4FF}118842421,62  \\ \hline
+\end{tabular}}
+\end{table}
 % ---{}
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
 % ---
