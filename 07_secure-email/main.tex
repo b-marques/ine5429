@@ -1,0 +1,735 @@
+%% abtex2-modelo-artigo.tex, v-1.9.6 laurocesar
+%% Copyright 2012-2016 by abnTeX2 group at http://www.abntex.net.br/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+    % -- opções da classe memoir --
+    article,            % indica que é um artigo acadêmico
+    11pt,               % tamanho da fonte
+    oneside,            % para impressão apenas no recto. Oposto a twoside
+    a4paper,            % tamanho do papel. 
+    % -- opções da classe abntex2 --
+    %chapter=TITLE,     % títulos de capítulos convertidos em letras maiúsculas
+    %section=TITLE,     % títulos de seções convertidos em letras maiúsculas
+    %subsection=TITLE,  % títulos de subseções convertidos em letras maiúsculas
+    %subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
+    % -- opções do pacote babel --
+    english,            % idioma adicional para hifenização
+    brazil,             % o último idioma é o principal do documento
+    sumario=tradicional,
+    ]{abntex2}
+
+
+% ---
+% PACOTES
+% ---
+\usepackage[table,xcdraw]{xcolor}
+
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{lmodern}            % Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}        % Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}     % Codificacao do documento (conversão automática dos acentos)
+% \usepackage{indentfirst}        % Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl}            % Lista de simbolos
+\usepackage{color}              % Controle das cores
+\usepackage{graphicx}           % Inclusão de gráficos
+\usepackage{microtype}          % para melhorias de justificação
+% ---
+        
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}             % para geração de dummy text
+\usepackage{fancyvrb}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage[procnames]{listings}
+\usepackage{color}
+\usepackage{amsmath}
+% ---
+        
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}     % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}   % Citações padrão ABNT
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+    \ifcase #1 %
+        Nenhuma citação no texto.%
+    \or
+        Citado na página #2.%
+    \else
+        Citado #1 vezes nas páginas #2.%
+    \fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Relatório INE5429\\Segurança em Computação\\ 
+        Números Primos}
+\autor{Bruno Marques do Nascimento\thanks{brunomn95@gmail.com \hspace{1mm} - \hspace{1mm} Universidade Federal de Santa Catarina}}
+\instituicao{Universidade Federal de Santa Catarina}
+\local{Florianópolis - SC, Brasil}
+\data{26 de Maio de 2018}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+        %pagebackref=true,
+        pdftitle={\@title}, 
+        pdfauthor={\@author},
+        pdfsubject={},
+        pdfcreator={LaTeX with abnTeX2},
+        pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+        colorlinks=true,            % false: boxed links; true: colored links
+        linkcolor=black,             % color of internal links
+        citecolor=black,             % color of links to bibliography
+        filecolor=magenta,              % color of file links
+        urlcolor=black,
+        bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[           % INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
+
+\maketitle
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+% \section*{Introdução}
+% \addcontentsline{toc}{section}{Introdução}
+
+\section{\textbf{PGP}}
+
+Foi gerado um certificado pgp de 2048 bits com o comando \texttt{gpg -{}-gen-key}:
+
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+gpg: next trustdb check due at 2018-07-25
+pub   2048R/3E9FDAF3 2018-05-26 [expires: 2018-07-25]
+      Key fingerprint = 606A E8C2 FEBB 54F8 2895  B4FE A1D4 FD19 3E9F DAF3
+uid                  Bruno Marques (Secure e-mail work) <brunomn95@gmail.com>
+sub   2048R/CEDF0AA2 2018-05-26 [expires: 2018-07-25]
+\end{Verbatim}
+
+\indent Após isto utilizou-se o cliente de e-mail Thunderbird com o add-on Enigmail. Foi adicionado o certificado pgp gerado ao cliente de e-mail para realizar a assinatura e ciframento das mensagens que serão enviadas.
+
+\subsection{\textbf{Criação do e-mail seguro}}
+
+Para criar o e-mail seguro utilizou-se da interface gráfica do thunderbird com o add-on enigmail, o qual através do botões presentes é ativado o ciframento e a assinatura da mensagem. As figuras \ref{fig1} e \ref{fig2} mostram isto.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Autenticação e encriptação desativada}
+        \label{fig1}
+        \includegraphics[width=0.9\textwidth]{imgs/auth-encript-disabled.pdf} % first figure itself
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Autenticação e encriptação ativada}
+        \label{fig2}
+        \includegraphics[width=0.9\textwidth]{imgs/auth-encript-enabled.pdf} % second figure itself
+    \end{minipage}
+\end{figure}
+
+
+\subsection{\textbf{Formatos DER e PEM}}
+ 
+São formatos de arquivos para armazenar certificados e chaves. O formato \texttt{.pem}(Privacy-Enhanced Mail), é delimitado pelas seguintes linhas:
+\begin{Verbatim}[commandchars=\\\{\}, fontsize=\footnotesize]
+-----BEGIN CERTIFICATE-----
+-----END CERTIFICATE-----
+\end{Verbatim}
+
+\indent Ele suporta diversos certificados digitais, incluindo uma cadeia de certificados. Se sua organização utilizar cadeia de certificados, utilize este formato para criar certificados ca. \cite{ibm-pem-der}
+
+Já o formato \texttt{.der} contém dados binários. Ele só pode ser utilizado para um único certificado, ao contrário de um arquivo \texttt{.pem}, que pode conter vários certificados. \cite{ibm-pem-der}
+
+\subsection{\textbf{E-mail original enviado e e-mail seguro}}
+
+\begin{figure}[H]
+    \centering
+    \caption{E-mail original}
+    \label{fig3}
+    \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+                            Olá, este é um e-mail seguro.
+    \end{Verbatim}
+
+    \caption{E-mail formato PEM}
+    \label{fig4}
+    \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+            -----BEGIN PGP MESSAGE-----
+            Version: GnuPG v2
+
+            hQEMA0qXobbO3wqiAQf+NT55SvOCci/PYo73F+QVs/n/TuS9moS2xQxm04t4kXDx
+            r3r/n36AFwoT3F+3WlnKinSCRUGZzUgJB55CEdMBpttP07dWDlzHxegoRUul+sa8
+            DIUpq9yE0UG0zZACj2Ql1uzeCKz8TMAL8KX23QiLyk2yWWx+Bhw1/r6LpFBjO51A
+            spmmMaMsLeeab5Lacg+hAKhwUvf9MQmSL90r9jJr4BEIvwPuBkp2rda7S/+uahvq
+            eRXl5x4VQKweACu/Vagk9emibDOef6lsKBFupwDV8RC91XK3IHQ37/kPs2F15WLm
+            +9yXZJ8S0Pf5Vskr4xwF0HuTMxVb94aGQT82WLp0WtLpAQk3NrsfTZXWNqCkLQEk
+            jHGGAqYcT6TSKOBOVDdXS7JDki0FdjUlQkZOxa4fbOBttNh2v25bqhimXYywLc2X
+            t8RzQ4U0gDGDBmCnEQiyeX4HCDy+v9P0kDZTyZp5FH7MVfb3qHLk3IKfYuwJeCZo
+            Z0o9yJjwcs9MLP7XkurgAaskfW/U8pWF3z0iWF6xPdYcKYFlCglMmd5zyLyG1S8x
+            4WHIT8jZjIMpzrJmbxlWypCqDqBY9L5thnvCe1rXxx46wE7FZpBoRAa6GvVSYxa5
+            c6mLXLz9+jUCBFTa8TcP8nJZL7Lc0cIzTGH5FaKl0q8KQKR74ajjpC4JLA2Dqeyu
+            9yr11sYWxRlF7TYUGyhs+/yuyqN8Kbbd2RvkeF9OgQCAJG4+gXtAJ5AQdqHY7MzP
+            d5Sq2YMZ+dMt1kh5uoj0RsmpyzpNkNsAaW0qMzi7VnlFOEkOnJJLywyJOhA7Bup/
+            lvysjDNNXxwF5n8eaqwhdW6U+MwXqIdsBUdvQrf1YQsFq+1VxxoIlh761NDtFv/Z
+            L4FEr5WZChcLIGRyusfdSaqBFIunJ9uH2ZssgSvVd/9rKH106cMFmCuyO6w7Xei7
+            c07bCYlP40nyay+5R2QkE/8rotJsmdxT2st9lCPpaICJhOXnolhhTALKFWVYr9MP
+            S67SaJf8JqjLroUtmizyLOHAHvT8v1Q9QuSOz1BSowtlpdstsH+8dMyOIzeEElX9
+            qjhZ3gxgOVajhKCcz/iykQwlIggYqzenBA2HIFCTllw6QZPhBGElWGbLSQr9vnug
+            gyIY3kqJUB6rJgMM5zNIedY/gSGyHGqf8JJACcp6NtEFDkEaCbWWZ6GPSrfv+5BX
+            fUMigEJa4qHH5POx7gMdwKYPAxKlTlGn8BdJ/GXEgn8okEw9QbmDA9mAYhipCFEv
+            x5NWP/IIs5pn+jRQrNtQUP0O/LTn33V1NXTfgwpYJWzR4my5bDO0n8eZVoeNO/Ik
+            Mg==
+            =MsFf
+            -----END PGP MESSAGE-----
+    \end{Verbatim}
+\end{figure}
+
+\subsection{\textbf{E-mail recebido}}
+
+\begin{figure}[H]
+    \centering
+    \caption{E-mail recebido}
+    \label{fig5}
+    \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+            -----BEGIN PGP MESSAGE-----
+            Version: GnuPG v2
+
+            hQEMA0qXobbO3wqiAQf7BX1YIJSlFdvxtszFqyf4ZHyhJvIV+lC9smtkP/ac23uV
+            lNM1kW/0vYKaunYO5lXX2pM/YV8BBm1drtBL9OxzFEoxOJ4UpC76p2FHw/FYjtcu
+            CYxQyc5enm2eKF59FfICedzcBsdel3rhVt0u4BXaOHbGwZ/gl1FHANB512tQ/ifh
+            JG2ui1apSlZQL4r8f9Zif4czB6S6jXfkIwW+i1KwXCWKtLCUMCOFAiM7WrJCywg3
+            A1K+SJes3yKilUBuJ7GwbBFHDUQh1530Pnio153HSJC5DZik8bZPKfdOUfLeouev
+            8AQ9Qp4guy1Jhj7/MEsDO31k/cctRbSz46E9Gu8VwtLpAdoQF0aS+h3CprYGutHC
+            9+jJ+i5aKTtAN2I6Mj7+F9k5hEAt5J0cbdv6D8Ua0mWMENDPM8ZNFLp8Pr4ybRGm
+            RXrp/ZHoU1I+hmjW/Q0KNmGMR49rH7rBqFyv3P9OkjxrYCkFrKY1jnGSLCKNaE2Z
+            a/qf04KU94qbvY7pcY0dvxKX0pS7MdJjaUrZa1SBvoJPdEaFNrPAwadd9H5DzCon
+            TNp6McmOxh089ExxRzEgqj/rV0vP+PjOoVSUST20OAVNu9Y4hbgM6lpbtWb4KU67
+            dhieZHBvZdpde8gYKqJsu2jo2+LiNM0zKffpRd9JcU4Cv0Rk0YiHZ/p1Aw9Vf8Sm
+            nGATyJw4jWK8f4g7lUIvXNExX8fwhp8L641UnTpBbI/kCfAPw775huIGeOonkqbk
+            8y0lJvmYn6gA1IvbxcUe6h/bMTC8pRzqzpxXGmX9PDiRNllhd7+3MxICWfAl73kx
+            RlGU74nPJQlgmUx9uFHkgy+v8MZfzp1+zAJR5GgH1iwB1M4lME8/k7FaOiSRJK9c
+            PDvVqVF1C7YMdezLxZnwVeZPwP9ZwD0WldFijTmFwAhsExr6LV0tySp5pgjnPVZM
+            dKoRXbdPkiEczer+onbamI1fVS/qiCWb1zvNlzh02eLy8IdzYwlGEcoaDYgLtV6/
+            MuS5ZolED0ET0AEFDmjq2YbAHGccM5kz6xGibnz1M10yh016+tXNQajHAceyLbkB
+            DMfLFSRZhyw/9A00kYsXcMs6Mq6TtiDlcCfPG88+L9946H70+EOQUFEsnYUmSTPU
+            SxlUFRIcBZoMo2KBROg8g6hvpfxusJ2J4C87LGs1v3PtCgZ38xwqvYqX4xnIBbtF
+            nfB3PvHwvX6UXnvI+gHx32V4iL8nT/1A31gctYfl73SXa08JZn56BC1K7N2BtSKH
+            wmCV5SG0nwh0t+l1JqcsXhNWgb9Ah4pQHY3//oag3NdjS/WUKObE6jbbvBy3i5A=
+            =MGaq
+            -----END PGP MESSAGE-----
+    \end{Verbatim}
+    \caption{E-mail decifrado}
+    \label{fig6}
+    \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+                            Custódio já corrigiu as provas?
+    \end{Verbatim}
+\end{figure}
+
+\section{\textbf{X.509}}
+
+\subsection{\textbf{S/MIME}}
+
+S/MIME (Secure/Multipurpose Internet Mail Extensions) é um padrão para encriptação e assinatura de dados MIME, com o uso de chave pública. Esse padrão foi originalmente desenvolvido pela RSA Security. Este padrão preve os seguintes serviços: autenticação, integridade de mensagem, não repúdio, privacidade e segurança de dados. \cite{smime-wiki}
+
+\subsection{\textbf{Gerando certificado X.509}}
+
+O certificado foi gerado utilizando o \texttt{ICPEdu Certificado Digital - Pessoa P1 - Sistema Automatizado de Emissão de Certificado} (https://p1.icpedu.rnp.br/default/certification/
+installcertificate/), que gerou o certificado no formato .p12. Para converte-lo para formato PEM foi utilizado o seguinte comando:
+
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+openssl pkcs12 -in SAEC-P1-Bruno-Marques.p12 -out bruno.pem -clcerts -nokeys
+\end{Verbatim}
+
+\begin{figure}[H]
+    \centering
+    \caption{Certificado X.509 formato PEM}
+    \label{fig6}
+    \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+            -----BEGIN CERTIFICATE-----
+            MIIGXTCCBEWgAwIBAgIEcNwbVDANBgkqhkiG9w0BAQ0FADCBiDEWMBQGA1UEAxMN
+            QUMgUGVzc29hcyBQMTELMAkGA1UECBMCU0MxCzAJBgNVBAYTAkJSMR0wGwYJKoZI
+            hvcNAQkBFg5jY2RAaWNwLmVkdS5icjEMMAoGA1UEChMDUk5QMQ8wDQYDVQQLEwZJ
+            Q1BFZHUxFjAUBgNVBAcTDUZsb3JpYW5vcG9saXMwHhcNMTgwNTI2MTc1NTU2WhcN
+            MTkwNTI2MTc1NTU2WjB7MTAwLgYDVQQDEydCcnVubyBNYXJxdWVzIGRvIE5hc2Np
+            bWVudG86MDkxMzI5OTA5MDExNjA0BgNVBAsTLVVGU0MgLSBVbml2ZXJzaWRhZGUg
+            RmVkZXJhbCBkZSBTYW50YSBDYXRhcmluYTEPMA0GA1UEChMGSUNQRWR1MIIBIjAN
+            BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjGUw0QC9EiFNa+lXXH3vcwW4l3dM
+            TkzVdCnw/xWqk+OlehNkGfx88/0v8K9SYbNV+8KTxNK6GLYc4ernY/O1xWklvbxG
+            i0SHETqK0UNXWWP+OvFQVCBV2BfWxMGKpjTgyVIopUn871zGK5gNhWm0FY2SQL8S
+            TlI/6bS7bslC3gig0vIS5FV3MQp9UcNPdBIuk4r60bbrzUOmcM8tfEoM11xA3T8n
+            SMaGI2PuvaEVu06L44HHdnVdFsOsJyGTA7dJYZtLmSPjywOrDEhszgLqENVCPn6z
+            NztQI6hm37UX0aP4sEbAgmv4WgoWfUOx8hg2HiU1EmSXbUApRuoJzxCllwIDAQAB
+            o4IB2TCCAdUwgaQGA1UdEQSBnDCBmYEVYnJ1bm8ubW5AZ3JhZC51ZnNjLmJyoDgG
+            BWBMAQMBoC8ELTA5MjIxOTk1MDkxMzI5OTA5MDEwMDAwMDAwMDAwMDAwMDAwMDAw
+            MDAwMDAwMKAtBgVgTAEDBaAkBCIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+            MDAwMDAwoBcGBWBMAQMGoA4EDDAwMDAwMDAwMDAwMDAJBgNVHRMEAjAAMB0GA1Ud
+            DgQWBBSK8aR0YXMvZqv4RydDKY9xbS2hlDCBgwYDVR0jBHwweoAUfLRzfqiQ0Iwj
+            3XWrHX9BSC1+Y2ihX6RdMFsxCzAJBgNVBAYTAkJSMQ8wDQYDVQQKEwZJQ1BFRFUx
+            DDAKBgNVBAoTA1JOUDEOMAwGA1UECxMFR09QQUMxHTAbBgNVBAMTFEFDIFJhaXog
+            ZGEgSUNQRURVIFYyggENME0GA1UdIARGMEQwQgYKKwYBBAH8fAEBBDA0MDIGCCsG
+            AQUFBwIBFiZodHRwczovL3AxLmljcGVkdS5ybnAuYnIvZHBjLWFjLXAxLnBkZjAO
+            BgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMA0G
+            CSqGSIb3DQEBDQUAA4ICAQBsdR9+5Ww2ztpt8zavoKZXovOq1bTXzomJAu0fhIIv
+            1lrCv2qc8qNxMDYtHu+SoU4C5Ra0SxOTw9e4kXk7U3KB/mNI9Gd6w9fAZnYAKW6F
+            oiNwW039c8OrtllndfExqQzi68qBB68XAyW0yalcWp+luta0JeNC0112ylxNBpjY
+            u8YSoSV3k3c0CdaYpmvFch+yS0JEo9qFt4OZk1QbSOnJSXiHFMtpVZMZhHBIjYHr
+            E7TzVJyQiogUIV8sJdWiSWZVr4bJIFEaua90EcrNAHWIspGDMOq2EVcPjF52qtRZ
+            8EXVjJ1ydB0xziflz9zo9znA61UgJs7iwH7cS1MDFrF15DtCzJ7m2m4j3zMLMKeU
+            jcnoqYlvnfItEmtj2Ogbw7PEp23QxZ+um2fJsqs8y8KSEwG8RTVUSMiBeZLNveV2
+            KgnStuuw10A9NKeOoWlCAWn9H02evqNK9MFoF+Gh3Arnx2JfpQ/ZIAuk0X9JmAW7
+            P05gWzHIcAe855eAyAs4PzqKh2EwMO0JfeifmbONBHwpFhnEYBqcINSU45pIAE8D
+            Kd1RISRgrA+HiDAmHOBZ9qA4lnK2OKD6C8tAKFAaJPs7AKU2jdnmo6oC645kfUNE
+            v8uSQHvD58T6EDBohyaSL0hjBCFmW5NRLTEZ35Yfc9Fq5mYpjhXLZvlnUTyLo6K+
+            1Q==
+            -----END CERTIFICATE-----
+    \end{Verbatim}
+\end{figure}
+
+\subsection{\textbf{Ferramenta para trabalhar com o X.509}}
+
+A ferramenta escolhida foi o \texttt{Thunderbird}.
+
+\subsection{\textbf{E-mail original enviado e e-mail seguro}}
+
+O certificado gerado foi importado para o Thunderbird para então gerar o email seguro.
+A autoridade certificadora também teve que ser importada no Thunderbird.
+
+    \textbf{E-mail formato original}
+    \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+                            Olá, este é um e-mail seguro com X.509.
+    \end{Verbatim}
+
+    \textbf{E-mail sigiloso}
+    \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+    From: Bruno Marques <bruno.mn@grad.ufsc.br>
+    Subject: X.509 6
+    Message-ID: <e8c2a9d6-9693-57f8-7279-6a170e4ba9f5@grad.ufsc.br>
+    Date: Sat, 26 May 2018 18:19:08 -0300
+    User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+     Thunderbird/52.8.0
+    MIME-Version: 1.0
+    Content-Type: application/pkcs7-mime; name="smime.p7m"; smime-type=enveloped-data
+    Content-Transfer-Encoding: base64
+    Content-Disposition: attachment; filename="smime.p7m"
+    Content-Description: S/MIME Encrypted Message
+
+    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
+    AAAA
+    \end{Verbatim}
+
+\subsection{\textbf{E-mail recebido com X.509}}
+
+\textbf{E-mail recebido:}
+\begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+    To: bruno.mn@grad.ufsc.br
+    Subject: X.509 7
+    Message-ID: <c1ff51f6-2393-492e-b557-3af9ff51ff13@grad.ufsc.br>
+    Date: Sat, 26 May 2018 18:33:49 -0300
+    User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+     Thunderbird/52.8.0
+    MIME-Version: 1.0
+    Content-Type: application/pkcs7-mime; name="smime.p7m"; smime-type=enveloped-data
+    Content-Transfer-Encoding: base64
+    Content-Disposition: attachment; filename="smime.p7m"
+    Content-Description: S/MIME Encrypted Message
+
+    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
+\end{Verbatim}
+
+\newpage
+\textbf{E-mail decifrado}
+    \begin{Verbatim}[frame=single, commandchars=\\\{\}, fontsize=\footnotesize]
+                            A prova não foi corrigida ainda... x.x
+    \end{Verbatim}
+% ---{}
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+% ---
+\bookmarksetup{startatroot}% 
+% ---
+
+% ---
+% Conclusão
+% ---
+% \section*{Considerações finais}
+% \addcontentsline{toc}{section}{Considerações finais}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{bibliography}
+
+\end{document}
